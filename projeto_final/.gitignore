@@ -1,0 +1,23 @@
+#uploads
+api/public/uploads
+
+# dependencies
+frontend/node_modules
+api/node_modules
+/.pnp
+.pnp.js
+
+# production
+/build
+/dist
+
+# debug
+npm-debug.log*
+.pnpm-debug.log*
+
+# local env files
+api/.env
+frontend/.env
+
+# vercel
+.vercel
