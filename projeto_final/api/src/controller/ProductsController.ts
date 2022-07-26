@@ -4,7 +4,7 @@ import ProductsService from '../services/ProductsService';
 
 class ProductsController {
     constructor(private readonly productService: typeof ProductsService) {}
-    
+
 
     public index = async(request: Request, response: Response, next: NextFunction) =>{
         try{
@@ -76,7 +76,7 @@ class ProductsController {
         const id = parseInt(request.params.id) 
 
         try{
-            const product = await this.productService.delete({id});
+            const product = await this.productService.delete(id);
             return response.status(200).json({product});
         }catch(error){
             next(error)

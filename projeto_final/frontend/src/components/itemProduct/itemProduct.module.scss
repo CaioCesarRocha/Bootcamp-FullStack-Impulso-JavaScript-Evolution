@@ -1,0 +1,82 @@
+@import '../../services/break-points.scss';
+
+$color-default: #023480;
+
+
+.Content{
+    margin-top: 10px;
+    //background-color: rgb(138, 196, 243);
+    background: linear-gradient(90deg, rgb(32, 157, 206) 0%, rgba(3,187,235,1) 100%);
+    border-radius: 16px;
+    box-shadow: 3px 3px 3px black;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    width: 380px;
+}
+
+.Content img{
+    width: 200px;
+    height: 210px;
+}
+
+.ContentInfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.ContentInfo a{
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 10px;
+    color: $color-default;
+
+    &:hover{
+        color: rgb(64, 94, 226);
+    }
+}
+
+.RowInfo{
+    display: flex;
+    flex-direction: row; 
+    margin-top: 10px;
+    //background-color: rgb(224, 54, 54);
+}
+
+.Info{
+    font-weight: 700;
+    color: $color-default;
+    //background-color: #87d422;
+}
+
+.InfoValue{
+    margin-left: 5px;
+    font-weight: 400;
+    color: #233291;
+    //background-color: #2e4e04;
+}
+
+.ButtonAddCart{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 2px;
+    width: 80%;
+    background-color: #023480;
+    color: #fff;
+    font-weight: 700;
+    border-color: #023480;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover{
+        border-color: #023480;
+        background-color:white;
+        color: #023480;
+    }
+}
+
+.ButtonAddCart i{
+    margin-left: 5px;
+}

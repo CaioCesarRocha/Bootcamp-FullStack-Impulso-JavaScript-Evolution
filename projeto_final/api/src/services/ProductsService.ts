@@ -48,7 +48,7 @@ class ProductsService{
     }
 
 
-    async delete({id}){
+    async delete(id: number){
         if(!id) throw new Error('ID not informed')
 
         const product = await this.productRepository.deleteProduct(id)

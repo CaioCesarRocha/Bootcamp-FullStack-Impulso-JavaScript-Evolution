@@ -1,4 +1,4 @@
-export = {
+export default {
     type: 'postgres',
     host:  process.env.PG_HOST,
     port: process.env.PG_PORT,
