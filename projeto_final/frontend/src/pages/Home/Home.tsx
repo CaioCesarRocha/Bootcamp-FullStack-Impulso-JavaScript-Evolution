@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import Layout from "../../components/layout/layout";
 import styles from './Home.module.scss';
 import * as icon from '../../components/icons/index'
-import ItemProduct from "../../components/itemProduct/itemProduct";
+import CardItem from "../../components/cardItem/cardItem";
 
 
 
@@ -37,21 +37,21 @@ const Home = () =>{
                 </div>
 
                 <div className={styles.RenderContent}>
-                    <ItemProduct
+                    <CardItem
                         id={1}
                         name="Camisa vera Cruz"
                         price={105}
                         image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
                         size="M"
                     />
-                    <ItemProduct
+                    <CardItem
                         id={1}
                         name="Camisa vera Cruz"
                         price={105}
                         image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
                         size="M"
                     />
-                    <ItemProduct
+                    <CardItem
                         id={1}
                         name="Camisa vera Cruz"
                         price={105}
@@ -59,7 +59,7 @@ const Home = () =>{
                         size="M"
                     />
 
-                    <ItemProduct
+                    <CardItem
                         id={1}
                         name="Camisa vera Internacional Veranopolis"
                         price={105}
@@ -67,7 +67,7 @@ const Home = () =>{
                         size="M"
                     />
 
-                    <ItemProduct
+                    <CardItem
                         id={1}
                         name="Camisa vera Cruz"
                         price={105}
@@ -75,7 +75,6 @@ const Home = () =>{
                         size="M"
                     />
                 </div>
-
             </div>
 
        </Layout>

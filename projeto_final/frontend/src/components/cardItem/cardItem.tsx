@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 
-import styles from './itemProduct.module.scss';
+import styles from './cardItem.module.scss';
 import * as icon from '../icons/index';
 
 interface propsProduct{
@@ -12,7 +12,7 @@ interface propsProduct{
     size: string
 }
 
-const ItemProduct = (props: propsProduct) =>{
+const CardItem = (props: propsProduct) =>{
     const navigate = useNavigate();
 
     return (
@@ -38,4 +38,4 @@ const ItemProduct = (props: propsProduct) =>{
 }
 
 
-export default ItemProduct;
+export default CardItem;

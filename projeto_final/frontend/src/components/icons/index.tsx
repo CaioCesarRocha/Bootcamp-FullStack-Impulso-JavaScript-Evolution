@@ -1,5 +1,8 @@
-import { FiSearch, FiEdit,  FiHeart, FiShoppingCart } from "react-icons/fi";
+import { FiSearch, FiEdit,  FiHeart, FiShoppingCart , FiAlertCircle, FiUpload} from "react-icons/fi";
 
+export const upload = (<FiUpload/>)
+
+export const alert = (<FiAlertCircle/>)
 
 export const shopCart = (<FiShoppingCart/>)
 

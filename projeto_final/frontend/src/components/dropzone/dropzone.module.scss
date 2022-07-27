@@ -1,0 +1,49 @@
+@import '../../services/break-points.scss';
+
+
+.Content{
+    display: flex;
+    width: 210px;
+    height: 210px;
+    margin: 0 auto;
+    background-color: rgb(24, 23, 131);
+    color: white;
+    border-radius: 16px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @include tablet {
+        width: 250px;
+        height: 250px;
+    }
+    @include laptop {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+
+.Content img{
+    height: 200px;
+    width: 200px;
+    border-radius: 12px;
+    @include tablet {
+        width: 240px;
+        height: 240px;
+    }
+    @include laptop {
+        width: 270px;
+        height: 270px;
+    }
+}
+
+.DropPlace {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.DropPlace i {
+   font-size: 50px;
+}

@@ -6,7 +6,6 @@ $color-default: #023480;
 .Content{
     margin: 0 auto;
     margin-top: 30px;
-    //background-color: rgb(138, 196, 243);
     background: rgb(208, 228, 245);
     width: 90%;
     align-items: center;
@@ -65,7 +64,6 @@ $color-default: #023480;
 .RowInfo{
     display: flex;
     flex-direction: row; 
-    //background-color: rgb(224, 54, 54);
 }
 
 .Info{
@@ -73,7 +71,6 @@ $color-default: #023480;
     font-weight: 700;
     font-size: 20px;
     color: $color-default;
-    //background-color: #87d422;
 }
 
 .InfoValue{
@@ -81,8 +78,6 @@ $color-default: #023480;
     margin-left: 10px;
     font-size: 20px;
     font-weight: 400;
-    color: #233291;
-    //background-color: #2e4e04;
 }
 
 .CalcCep{
