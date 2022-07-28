@@ -6,11 +6,15 @@ $color-default: #023480;
 .Content{
     margin: 0 auto;
     margin-top: 30px;
-    background: rgb(208, 228, 245);
+    background: linear-gradient(90deg, rgb(32, 157, 206) 0%, rgba(3,187,235,1) 100%);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 90%;
     align-items: center;
     display: flex;
     flex-direction: column;
+    padding: 10px;
 
     @include tablet {
         width: 100%;
@@ -49,15 +53,10 @@ $color-default: #023480;
 }
 
 .ContentInfo h1{
-    cursor: pointer;
     font-size: 30px;
     font-weight: 800;
     margin-top: 10px;
     color: $color-default;
-
-    &:hover{
-        color: rgb(64, 94, 226);
-    }
 }
 
 
@@ -116,4 +115,36 @@ $color-default: #023480;
         color: #233291;
         background-color: #fff;
     }
+}
+
+.ContentError{
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    background-color: rgb(245, 83, 83);
+    color: white;
+    padding: 8px;
+    width: 100%;
+    margin-top: 20px;
+    align-items: center;
+
+    @include tablet {
+        width: 350px;
+    }
+
+    @include laptop {
+        width: 400px;
+    }
+    @include desktop {
+        width: 550px;
+    }
+}
+
+.ContentError i {
+    font-size: 40px;
+}
+
+.ContentError p{
+    font-size: 20px;
+    padding-left: 20px;
 }

@@ -1,16 +1,26 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 
 import Layout from "../../components/layout/layout";
 import styles from './Home.module.scss';
 import * as icon from '../../components/icons/index'
 import CardItem from "../../components/cardItem/cardItem";
-
+import * as ProductService from '../../services/product.services';
+import {IProduct} from '../../services/interfaces/product.interface';
 
 
 
 const Home = () =>{
     const [search, setSearch] = useState<string>('')
+    const [products, setProducts] = useState<IProduct[]>([])
+
+    useEffect(() =>{
+        async function getProducts(){
+            const response: IProduct[] = await ProductService.getAllProducts();
+            setProducts(response)           
+        }
+        getProducts()
+    }, [])
 
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) =>{
         setSearch(e.target.value)
@@ -21,7 +31,7 @@ const Home = () =>{
     }
 
     return(
-       <Layout>
+        <Layout>
             <div className={styles.Content}>
                 <div className={styles.SearchContent}>
                     <input 
@@ -37,47 +47,19 @@ const Home = () =>{
                 </div>
 
                 <div className={styles.RenderContent}>
-                    <CardItem
-                        id={1}
-                        name="Camisa vera Cruz"
-                        price={105}
-                        image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
-                        size="M"
-                    />
-                    <CardItem
-                        id={1}
-                        name="Camisa vera Cruz"
-                        price={105}
-                        image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
-                        size="M"
-                    />
-                    <CardItem
-                        id={1}
-                        name="Camisa vera Cruz"
-                        price={105}
-                        image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
-                        size="M"
-                    />
-
-                    <CardItem
-                        id={1}
-                        name="Camisa vera Internacional Veranopolis"
-                        price={105}
-                        image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
-                        size="M"
-                    />
-
-                    <CardItem
-                        id={1}
-                        name="Camisa vera Cruz"
-                        price={105}
-                        image="https://1.bp.blogspot.com/-sfmZsY8J-SQ/YTfuPgFU4nI/AAAAAAAAYX0/vrCsfHkwQ8Q7PMBvw0frKHz2P15EpWl0wCLcBGAsYHQ/s280/Vera%2BCruz%2BPE%2B2021%2B2.png"
-                        size="M"
-                    />
+                    {products.map((product, key) =>(
+                        <CardItem
+                            key={key}
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            image={product.image}
+                            size={product.size}
+                        />
+                    ))}              
                 </div>
             </div>
-
-       </Layout>
+        </Layout>
     )
 }
 

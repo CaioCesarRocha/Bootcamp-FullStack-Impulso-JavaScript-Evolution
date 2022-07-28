@@ -6,29 +6,13 @@ import Layout from '../../components/layout/layout';
 import Dropzone from '../../components/dropzone/dropzone'
 import InputForm from '../../components/form/inputForm/inputForm';
 import ErrorForm from '../../components/form/errorForm/errorForm';
-import * as validationForm from '../../services/validationForm'
+import * as validationForm from '../../services/validationForm';
+import * as ProductService from '../../services/product.services';
+
 
 const CreateProduct = () =>{
     const [selectedFile, setSelectedFile] = useState<File>();
 
-
-    async function handleSubmit(data: validationForm.FormValuesCreateProduct){
-        const dataProduct = new FormData(); 
-
-        dataProduct.append('name', data.name);
-        dataProduct.append('price', data.price);
-        dataProduct.append('quantity', data.quantity);
-        dataProduct.append('size', data.size);
-
-        if(selectedFile){
-            dataProduct.append('image', selectedFile)
-        }
-
-        //const response = await servicesVehicle.createVehicle(data)
-
-        return dataProduct;
-
-    }
 
     const formik  = useFormik({
         initialValues: validationForm.initialValuesCreateProduct,
@@ -38,15 +22,19 @@ const CreateProduct = () =>{
         enableReinitialize: true,
 
         onSubmit: async (data) => {
-            const response = await handleSubmit(data);
-            
-            console.log('data enviado', response)
-    
-            //formik.resetForm();
-            //alert(`Veículo ${response} cadastrado com sucesso!`);
-            //navigate('/')
+            if(selectedFile){
+                const response = await ProductService.createProduct(data,selectedFile);
+
+                if(response === 201){
+                    //formik.resetForm();
+                    alert(`Veículo ${data.name} cadastrado com sucesso!`);
+                    //navigate('/')
+                }else if(response === 400) alert('Produto com este nome já existe no banco!')              
+            } 
+            else{ alert('Selecione uma imagem') }        
         }
     });
+
 
     return(
         <Layout>

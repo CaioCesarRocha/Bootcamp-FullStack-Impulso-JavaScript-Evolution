@@ -18,9 +18,8 @@ class ProductsController {
     }
 
 
-    public show = async(request: Request, response: Response, next: NextFunction) => {      
-        const id = parseInt(request.params.id)
-
+    public show = async(request: Request, response: Response, next: NextFunction) => { 
+        const id: number = parseInt(request.params.id) 
         try{
             const product = await this.productService.show(id);
     

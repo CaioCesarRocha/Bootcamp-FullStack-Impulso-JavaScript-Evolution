@@ -16,12 +16,14 @@ export class ProductsRepository extends Repository<Product>{
 
 
     async showProduct(id: number): Promise<IProduct>{
+        console.log('id enviado', id, 'tipo', typeof id)
         const product = await getRepository(Product)
         .createQueryBuilder('product')
         .where('product.id = :id', {id: id})
         .getOne()
 
         if(!product) throw new Error('No one product finded')
+        console.log('produto', product)
         return product;
     }
 

@@ -7,21 +7,25 @@ class ProductsService{
     constructor(private readonly productRepository: ProductsRepository) {}
 
     async index(): Promise<IProduct[]>  {
-      
-        const products = await this.productRepository.index();
+        var products = await this.productRepository.index();
         
-        return products; 
+        const serializedProducts = products.map(product =>{
+            product.image = `http://${process.env.MY_IP_LINUX}:5000/uploads/${product.image}`
+            return {...product}
+        })
+        
+        return serializedProducts; 
     }
 
 
     async show(id: number): Promise<IProduct>{      
-        const products = await this.productRepository.showProduct(id);
-
-        return products; 
+        var product = await this.productRepository.showProduct(id);
+        product.image = `http://${process.env.MY_IP_LINUX}:5000/uploads/${product.image}`
+        return product; 
     }
 
 
-    async create({newP}: IRequestProduct ){
+    async create({newP}: IRequestProduct): Promise<boolean>{
 
         if(newP.name.length === 0 || newP.size.length === 0) {
             throw new Error('Inform all fields')
@@ -31,7 +35,7 @@ class ProductsService{
 
         if(!product) throw new Error('Duplicate field or Connection error')
 
-        return product;     
+        return true;     
     }
 
 
