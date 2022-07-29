@@ -2,8 +2,8 @@
 import styles from './inputForm.module.scss';
 
 interface propsInputForm {
-    placeholder: string,
-    value?: string,
+    placeholder?: string,
+    value?: string | number,
     info: string,
     name: string,
     type: 'text' | 'number',

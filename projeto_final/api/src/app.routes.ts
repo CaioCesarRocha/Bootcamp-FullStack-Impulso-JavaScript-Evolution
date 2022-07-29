@@ -5,19 +5,21 @@ import MulterConfig from './middlewares/Multer';
 import ProductsController from "./controller/ProductsController";
 
 const upload = multer(MulterConfig);
-const appRuotes  = Router();
+const appRoutes = Router();
 
 
-appRuotes.get('/products', ProductsController.index);
+appRoutes.get('/products', ProductsController.index);
 
-appRuotes.get('/products/:id', ProductsController.show);
+appRoutes.get('/products/:id', ProductsController.show);
 
-appRuotes.post('/products', upload.single("image"), ProductsController.create );
+appRoutes.get('/products/filter/:search', ProductsController.search);
 
-appRuotes.post('/products/:id', upload.single("image"), ProductsController.update );
+appRoutes.post('/products', upload.single("image"), ProductsController.create );
 
-appRuotes.delete('/products/:id', ProductsController.delete);
+appRoutes.put('/products/:id', upload.single("image"), ProductsController.update );
+
+appRoutes.delete('/products/:id', ProductsController.delete);
 
 
 
-export { appRuotes};
+export { appRoutes};

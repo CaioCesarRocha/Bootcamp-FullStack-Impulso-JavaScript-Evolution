@@ -31,6 +31,21 @@ class ProductsController {
         }     
     }
 
+    public search = async(request: Request, response: Response, next: NextFunction) => { 
+        //const search: string = request.params.search 
+        try{
+            const product = await this.productService.search(request.params.search );
+    
+            return response.status(200).json({product}) 
+        }catch(error){
+            error.statusCode = 400;
+            error.message=`Product don't exist or connection refused`
+            next(error)
+        }     
+    }
+
+
+
 
 
     public create = async(request: Request, response: Response, next: NextFunction) =>{
@@ -53,10 +68,9 @@ class ProductsController {
 
     public update = async(request: Request, response: Response, next: NextFunction) => {
         try{
-            const imgProduct = request.file?.filename
-
-            var newP = request.body
-            newP = {...newP, "image": imgProduct}    
+            const imgProduct = request.file?.filename;
+            var newP = request.body;
+            newP = {...newP, "image": imgProduct};   
 
             const id = parseInt(request.params.id)
 

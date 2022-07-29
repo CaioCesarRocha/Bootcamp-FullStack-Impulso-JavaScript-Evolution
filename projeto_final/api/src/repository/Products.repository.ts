@@ -16,15 +16,26 @@ export class ProductsRepository extends Repository<Product>{
 
 
     async showProduct(id: number): Promise<IProduct>{
-        console.log('id enviado', id, 'tipo', typeof id)
         const product = await getRepository(Product)
         .createQueryBuilder('product')
         .where('product.id = :id', {id: id})
         .getOne()
 
         if(!product) throw new Error('No one product finded')
-        console.log('produto', product)
+ 
         return product;
+    }
+
+    async search(search: string): Promise<IProduct[]>{
+        console.log('searc', search)
+        const products = await getRepository(Product)
+        .createQueryBuilder("product")
+        .where('product.size = :size', {size: `${search}`})
+        .orWhere('product.price = :price', {price: search})
+        .orWhere('product.name = :name', {name: `${search}`})
+        .getMany()
+        
+        return products;
     }
 
 
@@ -48,14 +59,25 @@ export class ProductsRepository extends Repository<Product>{
     }
 
     async updateProduct({id, newP}: IRequestProduct ){
-        const product = await getRepository(Product)
-        .createQueryBuilder()
-        .update(Product)
-        .set({name: newP.name, price: newP.price, quantity: newP.quantity, image: newP.image, size: newP.size})
-        .where("id = :id", { id: id })
-        .execute()
+        if (newP.image === undefined){
+            const product = await getRepository(Product)
+            .createQueryBuilder()
+            .update(Product)
+            .set({name: newP.name, price: newP.price, quantity: newP.quantity, size: newP.size})
+            .where("id = :id", { id: id })
+            .execute()
 
-        return true; 
+            return product; 
+        }else{
+            const product = await getRepository(Product)
+            .createQueryBuilder()
+            .update(Product)
+            .set({name: newP.name, price: newP.price, quantity: newP.quantity, image: newP.image, size: newP.size})
+            .where("id = :id", { id: id })
+            .execute()
+
+            return product; 
+        }      
     }
 
     async deleteProduct(id: number){

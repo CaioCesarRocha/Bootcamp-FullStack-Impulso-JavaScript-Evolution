@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {useDropzone} from 'react-dropzone'
 
 import styles from './dropzone.module.scss';
@@ -7,12 +7,16 @@ import * as icon from '../icons/index'
 interface propsDropzone{
     onFileUploaded: (file: File) => void;
     message: string;
-    rounded?: string;
+    valueInitial?: string;
   }
 
 
-const Dropzone: React.FC<propsDropzone>= ({onFileUploaded, message, rounded}) => {
+const Dropzone: React.FC<propsDropzone>= ({onFileUploaded, message, valueInitial}) => {
     const [selectedFileUrl, setSelectedFileUrl] = useState('');
+
+    useEffect(() =>{
+        if(valueInitial) setSelectedFileUrl(valueInitial)
+    }, [valueInitial])
 
     const onDrop = useCallback( (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
@@ -20,6 +24,7 @@ const Dropzone: React.FC<propsDropzone>= ({onFileUploaded, message, rounded}) =>
         const fileURL = URL.createObjectURL(file); //criar a url do arquivo
 
         setSelectedFileUrl(fileURL);
+  
         onFileUploaded(file)
     }, [onFileUploaded])
 

@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path'; 
 import errorHandler from './middlewares/ErrorHandler';
-import { appRuotes } from './app.routes';
+import { appRoutes } from './app.routes';
 
 
 const server = express();
@@ -22,7 +22,7 @@ server.use(express.urlencoded({extended: true}));
 
 
 //APP ROUTES
-server.use(appRuotes);
+server.use(appRoutes);
 
 
 //HANDLING ERRORS

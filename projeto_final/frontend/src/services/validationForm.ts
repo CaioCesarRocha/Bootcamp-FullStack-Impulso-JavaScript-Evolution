@@ -1,6 +1,8 @@
 import * as Yup from "yup";
+import * as  ProductService from '../services/product.services';
+import {FormValuesProduct, FormValuesCreateProduct, IProduct} from './interfaces/product.interface';
 
-//VALIDATION TO FORM CREATE PRODUCT
+//VALIDATION FOR CREATE
 export const schemaCreateProduct = Yup.object().shape({ //validation com Yup
     name: Yup.string().required('O campo Nome é obrigatório'),
     price: Yup.number().required('O campo Preço é obrigatório'),
@@ -8,15 +10,31 @@ export const schemaCreateProduct = Yup.object().shape({ //validation com Yup
     size: Yup.string().required('Selectione um tamanho'),
 })
 
-export interface FormValuesCreateProduct { //necessário para o formik
-    name: string;
-    price: string;
-    quantity: string;
-    size: string;
-}
-
 export const initialValuesCreateProduct: FormValuesCreateProduct = { 
     name: '', price: '', quantity: '', size: '' 
 };
 
-export const sizes = ['P', 'M', 'G', 'GG']
+export const sizes = ['P', 'M', 'G', 'GG'];
+
+
+
+
+//VALIDATION FOR UPDATE
+export const getInitialValues = async (id: string) =>{
+    const values: IProduct = await ProductService.getOneProduct(id);
+
+    const ValuesUpdateProduct:FormValuesProduct = { 
+        id: values.id,
+        name: values.name, 
+        price: values.price, 
+        quantity: values.quantity, 
+        size: values.size,
+        image: values.image 
+    };
+
+    return ValuesUpdateProduct
+}
+
+
+
+

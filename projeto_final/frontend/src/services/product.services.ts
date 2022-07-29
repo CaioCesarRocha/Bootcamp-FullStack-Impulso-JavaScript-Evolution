@@ -1,7 +1,5 @@
-
-import * as validationForm from './validationForm';
 import * as ProductRepository from '../repository/product.repository';
-import {IProduct} from '../services/interfaces/product.interface'
+import { FormValuesCreateProduct, FormValuesProduct,IProduct} from '../services/interfaces/product.interface'
 
 
 export async function getAllProducts(): Promise<IProduct[]>{
@@ -19,7 +17,7 @@ export async function getOneProduct(id: string): Promise<IProduct>{
 
 
 
-export async function createProduct(data: validationForm.FormValuesCreateProduct, file: File): Promise<number>{
+export async function createProduct(data: FormValuesCreateProduct, file: File): Promise<number>{
     const dataProduct = new FormData(); 
 
     dataProduct.append('name', data.name);
@@ -27,10 +25,23 @@ export async function createProduct(data: validationForm.FormValuesCreateProduct
     dataProduct.append('quantity', data.quantity);
     dataProduct.append('size', data.size);
 
-    if(file){
-        dataProduct.append('image', file)
-    }
+    if(file) dataProduct.append('image', file)
 
     const response = await ProductRepository.createProduct(dataProduct)
+    return response;
+}
+
+export async function updateProduct( id:string,data: FormValuesProduct, file?: File): Promise<number>{
+    const dataProduct = new FormData(); 
+
+    dataProduct.append('name', data.name);
+    dataProduct.append('price', data.price as any);
+    dataProduct.append('quantity', data.quantity as any);
+    dataProduct.append('size', data.size);
+
+    if(file) dataProduct.append('image', file)
+    else dataProduct.append('image', '')
+
+    const response = await ProductRepository.updateProduct(id, dataProduct)
     return response;
 }

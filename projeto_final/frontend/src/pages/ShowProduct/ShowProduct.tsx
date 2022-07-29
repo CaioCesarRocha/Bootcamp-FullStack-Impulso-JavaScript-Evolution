@@ -7,18 +7,18 @@ import Layout from '../../components/layout/layout';
 import * as ProductService from '../../services/product.services';
 import {IProduct} from '../../services/interfaces/product.interface';
 
+
 const ShowProduct = () =>{
     const [product, setProduct] = useState<IProduct>(
         {id: 0, name: '', price: 0, quantity: 0, size: '', image: ''}
     )
 
-    const params = useParams()
+    const params = useParams();
 
     useEffect(() =>{
         const id = params.id || '0'
         async function getProduct(){
             const response: IProduct = await ProductService.getOneProduct(id);
-            console.log('res', response)
             setProduct(response)           
         }
         getProduct()
@@ -58,9 +58,18 @@ const ShowProduct = () =>{
                             </button>
                         </div>
                         
-                        <button className={styles.FinishShop}>
-                            Finalizar Compra
-                        </button>
+                        {product.quantity !== 0 ?
+                            <button className={styles.FinishOKShop}>
+                                Finalizar Compra
+                            </button>
+                        :
+                            <button style={{ backgroundColor:'#ccc', color: 'white', cursor: 'text'}} 
+                                className={styles.FinishOKShop}
+                            >
+                                Finalizar Compra
+                            </button>
+                        }
+   
                     </div>
                 </div>
             :
@@ -68,9 +77,7 @@ const ShowProduct = () =>{
                     <i>{icon.alert}</i>
                     <p>Nada foi encontrado. Tente novamente mais tarde.</p>
                 </div>           
-            }
-            
-            
+            }       
         </Layout>
     )
 }

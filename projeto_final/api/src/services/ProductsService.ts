@@ -25,8 +25,19 @@ class ProductsService{
     }
 
 
-    async create({newP}: IRequestProduct): Promise<boolean>{
+    async search(search: string): Promise<IProduct[]> {
+        var products = await this.productRepository.search(search);
+        
+        const serializedProducts = products.map(product =>{
+            product.image = `http://${process.env.MY_IP_LINUX}:5000/uploads/${product.image}`
+            return {...product}
+        })
+        
+        return serializedProducts; 
+    }
 
+
+    async create({newP}: IRequestProduct): Promise<boolean>{
         if(newP.name.length === 0 || newP.size.length === 0) {
             throw new Error('Inform all fields')
         }
