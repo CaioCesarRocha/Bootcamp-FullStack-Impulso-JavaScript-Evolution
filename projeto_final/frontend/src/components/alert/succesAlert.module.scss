@@ -1,0 +1,17 @@
+
+
+.ButtonAlert{
+    margin-bottom: 10px;
+    background-color: #233291;
+    height: 30px;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover{
+        color: #233291;
+        background-color: #fff;
+    }
+}

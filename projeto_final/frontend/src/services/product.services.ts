@@ -4,7 +4,7 @@ import { FormValuesCreateProduct, FormValuesProduct,IProduct} from '../services/
 
 export async function getAllProducts(): Promise<IProduct[]>{
     const response = await ProductRepository.getAllProducts();
-    
+
     return response;    
 }
 
@@ -14,6 +14,14 @@ export async function getOneProduct(id: string): Promise<IProduct>{
 
     return response;
 }
+
+
+export async function getSearchProducts(search: string): Promise<IProduct[]>{
+    const response = await ProductRepository.getSearchProducts(search);
+
+    return response;    
+}
+
 
 
 

@@ -31,21 +31,18 @@ class ProductsController {
         }     
     }
 
+
     public search = async(request: Request, response: Response, next: NextFunction) => { 
-        //const search: string = request.params.search 
         try{
-            const product = await this.productService.search(request.params.search );
+            const products = await this.productService.search(request.params.search );
     
-            return response.status(200).json({product}) 
+            return response.status(200).json({products}) 
         }catch(error){
             error.statusCode = 400;
             error.message=`Product don't exist or connection refused`
             next(error)
         }     
     }
-
-
-
 
 
     public create = async(request: Request, response: Response, next: NextFunction) =>{

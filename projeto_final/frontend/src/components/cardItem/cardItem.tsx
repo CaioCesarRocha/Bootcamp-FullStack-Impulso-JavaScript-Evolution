@@ -2,6 +2,7 @@ import {useNavigate} from 'react-router-dom'
 
 import styles from './cardItem.module.scss';
 import * as icon from '../icons/index';
+import SuccessAlert from '../alert/succesAlert';
 
 interface propsProduct{
     id: number,
@@ -28,10 +29,12 @@ const CardItem = (props: propsProduct) =>{
                     <div className={styles.Info}> Tamanho: </div> 
                     <div className={styles.InfoValue}> {props.size} </div>
                 </div>
-                <button className={styles.ButtonAddCart}>
-                    Adicionar
-                    <i>{icon.shopCart}</i>
-                </button>
+                <div className={styles.ContentButton}>
+                    <SuccessAlert
+                        message='Produto adicionado ao carrinho'
+                        textButton='Adicionar'
+                    />
+                </div>
             </div>
         </div>
     )

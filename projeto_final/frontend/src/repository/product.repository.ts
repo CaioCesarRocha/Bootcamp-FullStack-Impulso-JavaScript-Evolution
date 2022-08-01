@@ -2,11 +2,9 @@ import api from '../services/Connection/api';
 import { IProduct } from '../services/interfaces/product.interface'
 
 
-
 export async function getAllProducts(): Promise<IProduct[]> {  
     try{
-        const response = await api.get('/products');
-        
+        const response = await api.get('/products');       
         return response.data.products;
     }catch(err){
         console.log(err)
@@ -19,7 +17,6 @@ export async function getAllProducts(): Promise<IProduct[]> {
 export async function getOneProduct(id: string): Promise<IProduct>{
     try{
         const response = await api.get(`/products/${id}`)
-
         return response.data.product;
     }catch(err){
         console.log(err)
@@ -28,10 +25,10 @@ export async function getOneProduct(id: string): Promise<IProduct>{
     }
 }
 
+
 export async function getSearchProducts(search: string): Promise<IProduct[]> { 
     try{
         const response = await api.get(`/products/filter/${search}`);
-        
         return response.data.products;
     }catch(err){
         console.log(err)
@@ -39,7 +36,6 @@ export async function getSearchProducts(search: string): Promise<IProduct[]> {
         return response;
     }
 }
-
 
 
 export async function createProduct(dataProduct: FormData): Promise<number>{
@@ -50,6 +46,7 @@ export async function createProduct(dataProduct: FormData): Promise<number>{
         return 400
     } 
 }
+
 
 export async function updateProduct(id: string, dataProduct: FormData): Promise<number>{
     try{

@@ -26,8 +26,9 @@ const Home = () =>{
         setSearch(e.target.value)
     }
 
-    const searchVehicle = (search: string) =>{
-        console.log('search', search)
+    const searchVehicle = async (search: string) =>{
+        const searchedProducts: IProduct[] = await ProductService.getSearchProducts(search)
+        setProducts(searchedProducts)
     }
 
     return(
@@ -45,19 +46,26 @@ const Home = () =>{
                         <i>{icon.search}</i>
                     </button>
                 </div>
+                {products.length > 0 ?                     
+                    <div className={styles.RenderContent}>
+                        {products.map((product, key) =>(
+                            <CardItem
+                                key={key}
+                                id={product.id}
+                                name={product.name}
+                                price={product.price}
+                                image={product.image}
+                                size={product.size}
+                            />
+                        ))}              
+                    </div>
 
-                <div className={styles.RenderContent}>
-                    {products.map((product, key) =>(
-                        <CardItem
-                            key={key}
-                            id={product.id}
-                            name={product.name}
-                            price={product.price}
-                            image={product.image}
-                            size={product.size}
-                        />
-                    ))}              
-                </div>
+                :                
+                    <div className={styles.ContentNotFound}>
+                        <i>{icon.sad}</i>
+                        <p>Nenhum produto foi encontrado na pesquisa.</p>
+                    </div>
+                }  
             </div>
         </Layout>
     )
