@@ -25,6 +25,7 @@ export class ProductsRepository extends Repository<Product>{
  
         return product;
     }
+
     
     //LEMBRAR FAZER FILTRO PARA PREÇOS, AQUI TA PROCURANDO SOMENTE PELO NOME E TAMANHO.
     async search(search: string): Promise<IProduct[]>{

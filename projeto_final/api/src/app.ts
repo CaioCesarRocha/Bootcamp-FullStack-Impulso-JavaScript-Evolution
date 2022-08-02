@@ -4,7 +4,9 @@ import morgan from 'morgan';
 import cors from 'cors';
 import path from 'path'; 
 import errorHandler from './middlewares/ErrorHandler';
-import { appRoutes } from './app.routes';
+import { productsRoutes } from './Routes/products.routes';
+import { usersRoutes } from './Routes/users.routes';
+import { shoppingCartRoutes } from './Routes/shoppingcart.routes';
 
 
 const server = express();
@@ -22,7 +24,10 @@ server.use(express.urlencoded({extended: true}));
 
 
 //APP ROUTES
-server.use(appRoutes);
+server.use(usersRoutes);
+server.use(productsRoutes);
+server.use(shoppingCartRoutes)
+
 
 
 //HANDLING ERRORS
