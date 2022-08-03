@@ -1,0 +1,124 @@
+@import '../../services/break-points.scss';
+
+.Container{
+    height: 100vh;
+    margin: 0 auto;   
+    background-color: rgb(228, 234, 235);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.ImageScreenAuthentication{
+    height: 100vh;
+    display: none;
+    object-fit: cover;
+
+    @include laptop {
+        display: block;
+        width: 65%;
+    }
+    @include desktop {     
+        width: 70%;
+    }
+}
+
+.ContentErrors{
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    background-color: rgb(245, 83, 83);
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+    width: 80%;
+    margin-top: 20px;
+    align-items: center;
+
+}
+
+.ContainerForm{
+    width: 100%;
+    height: 96.1vh;
+    margin: 0 auto; 
+    align-items: center;
+    justify-content: center;
+    margin-left: 1px;
+    background: linear-gradient(90deg, rgb(1, 65, 117) 0%, rgb(3, 144, 238) 100%);
+    padding: 12px;
+
+    @include tablet {
+        width: 100%
+    }
+    @include laptop {
+        width: 80%
+    }
+}
+
+.Title{
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.ContentForm{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.ForgetPassword{
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color:#fff;
+    //text-align: right;
+
+    &:hover{
+        color: #023480;
+    }
+}
+
+.ButtonGoogle{
+    width: 80%;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 6px 0px 6px 0px;
+    margin-top: 40px;
+    color: #fff;
+    font-weight: 600;
+    background-color: rgb(5, 53, 5);
+    &:hover{
+        background-color: rgb(24, 112, 46);
+    }
+}
+
+.ButtonGoogle i{
+    font-size: 16px;
+    padding-top: 30px;
+    margin-left: 10px;
+}
+
+
+.InfoLogin{
+    font-weight: 700;
+    font-size:16px;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.InfoLogin a{
+    color:rgb(17, 17, 17);
+    font-size:14px;
+    margin-left: 5px; 
+    cursor: pointer;
+    &:hover{
+        color:rgb(58, 56, 56);
+    }
+}

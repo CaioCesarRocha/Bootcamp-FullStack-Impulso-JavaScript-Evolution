@@ -6,7 +6,8 @@ interface propsInputForm {
     value?: string | number,
     info: string,
     name: string,
-    type: 'text' | 'number',
+    required?: boolean,
+    type: 'text' | 'number' | 'password' | 'email',
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -19,7 +20,8 @@ const InputForm = (props: propsInputForm) =>{
                 name={props.name}
                 placeholder={props.placeholder}
                 type={props.type}
-                value={props.value} 
+                value={props.value}
+                required={props.required} 
                 onChange={props.onChange}
             />
         </div>  

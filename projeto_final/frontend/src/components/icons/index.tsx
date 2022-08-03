@@ -1,5 +1,12 @@
-import { FiSearch, FiEdit,  FiHeart, FiShoppingCart , FiAlertCircle, FiUpload, FiFrown} from "react-icons/fi";
+import { FiSearch, FiEdit,  FiHeart, FiShoppingCart , FiAlertCircle, FiUpload, FiFrown, FiLogOut} 
+    from "react-icons/fi";
 
+import { FcGoogle } from "react-icons/fc";
+
+
+export const logout = (<FiLogOut/>)
+
+export const google = (<FcGoogle/>)
 
 export const sad = (<FiFrown/>)
 

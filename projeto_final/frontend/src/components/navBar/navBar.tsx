@@ -1,32 +1,31 @@
 import styles from './navBar.module.scss';
 import * as icon from '../icons/index'
+import { useNavigate } from 'react-router-dom';
 
 
 const NavBar = () =>{
+    const navigate = useNavigate();
     return(
         <header className={styles.header}>
             <>
-                <a  href="http://localhost:3000/">
+                <a onClick={() => navigate('/')}>
                     <img
                         src="/images/logo_DIO.png"
                         alt="Logo Empresa"
                     />
                 </a>
                 
-                <a href="http://localhost:3000/" >
+                <a onClick={() => navigate('/')}>
                     DIO E-Commerce
                 </a>
             </>
 
-            <a href="http://localhost:3000/favorites" className={styles.ContainerOptions}>
+            <a onClick={() => navigate('/Favorites')} className={styles.ContainerOptions}>
                 <div className={styles.NumShopCart}> 0</div>
                 <i>{icon.shopCart}</i>
             </a>
         </header>
-
-
     )
 }
-
 
 export default NavBar;

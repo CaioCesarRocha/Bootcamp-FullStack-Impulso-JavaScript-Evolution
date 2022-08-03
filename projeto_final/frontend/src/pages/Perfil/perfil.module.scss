@@ -1,0 +1,34 @@
+@import '../../services/break-points.scss';
+
+
+
+.ContentButton{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-top: 15px;
+    margin-right: 15px ;
+}
+
+.ButtonLogout{
+    cursor: pointer;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    border-radius: 12px;
+    background-color: rgb(241, 95, 95);
+    color: white;
+    font-weight: 600;
+
+    &:hover{
+        background-color: rgb(240, 42, 42); 
+    }
+}
+
+.ButtonLogout i{
+    font-size: 20px;
+}
+
+.ButtonLogout a{
+    margin-left: 5px;
+}

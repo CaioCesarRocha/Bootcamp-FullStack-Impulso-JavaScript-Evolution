@@ -91,24 +91,3 @@
     font-weight: bold;
 }
 
-.ButtonSendProduct{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    width: 150px;
-    height: 30px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: 700;
-    background-color: rgb(24, 23, 131);
-    box-shadow: 3px 3px 3px black;
-    color: #fff;
-
-    &:hover{
-        background-color: rgb(57, 56, 150);
-    }
-
-    @include tablet {
-        width: 240px;
-        
-    }   
-}

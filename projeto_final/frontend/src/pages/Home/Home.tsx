@@ -1,6 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
 
-
 import Layout from "../../components/layout/layout";
 import styles from './Home.module.scss';
 import * as icon from '../../components/icons/index'
@@ -13,11 +12,12 @@ import {IProduct} from '../../services/interfaces/product.interface';
 const Home = () =>{
     const [search, setSearch] = useState<string>('')
     const [products, setProducts] = useState<IProduct[]>([])
+    
 
     useEffect(() =>{
         async function getProducts(){
             const response: IProduct[] = await ProductService.getAllProducts();
-            setProducts(response)           
+            setProducts(response)              
         }
         getProducts()
     }, [])
@@ -59,7 +59,6 @@ const Home = () =>{
                             />
                         ))}              
                     </div>
-
                 :                
                     <div className={styles.ContentNotFound}>
                         <i>{icon.sad}</i>

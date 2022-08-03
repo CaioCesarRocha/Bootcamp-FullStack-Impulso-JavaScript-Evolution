@@ -32,11 +32,8 @@ header a {
     font-style: italic;
     color: #{$color-default};
     text-decoration: none;
+    cursor: pointer;
     
-    &:hover{
-        color: #161816
-    }
-
     @include tablet {
         font-size: 23px;
     }

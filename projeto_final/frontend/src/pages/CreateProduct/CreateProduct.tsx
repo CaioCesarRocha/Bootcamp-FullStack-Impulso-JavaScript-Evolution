@@ -6,6 +6,7 @@ import Layout from '../../components/layout/layout';
 import Dropzone from '../../components/dropzone/dropzone'
 import InputForm from '../../components/form/inputForm/inputForm';
 import ErrorForm from '../../components/form/errorForm/errorForm';
+import ButtonForm from '../../components/form/ButtonForm/buttonForm';
 import * as validationForm from '../../services/validationForm';
 import * as ProductService from '../../services/product.services';
 
@@ -105,9 +106,8 @@ const CreateProduct = () =>{
                             </div>
                         </div>
                     </div>
-                    <button className={styles.ButtonSendProduct} type='submit'>
-                        Finalizar Cadastro
-                    </button>                 
+
+                    <ButtonForm message='Finalizar Cadastro'/>             
                 </form>
                 
             </div>
