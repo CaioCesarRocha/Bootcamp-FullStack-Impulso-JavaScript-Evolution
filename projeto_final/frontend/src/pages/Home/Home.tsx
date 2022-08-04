@@ -5,6 +5,7 @@ import styles from './Home.module.scss';
 import * as icon from '../../components/icons/index'
 import CardItem from "../../components/cardItem/cardItem";
 import * as ProductService from '../../services/product.services';
+import * as UsersService from '../../services/user.services';
 import {IProduct} from '../../services/interfaces/product.interface';
 
 
@@ -17,7 +18,7 @@ const Home = () =>{
     useEffect(() =>{
         async function getProducts(){
             const response: IProduct[] = await ProductService.getAllProducts();
-            setProducts(response)              
+            setProducts(response)     
         }
         getProducts()
     }, [])

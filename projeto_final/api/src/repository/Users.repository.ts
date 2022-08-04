@@ -16,10 +16,10 @@ export class UsersRepository extends Repository<User>{
     }
 
 
-    async showProduct(id: number): Promise<IUser>{
+    async show(email: string): Promise<IUser>{
         const user = await getRepository(User)
         .createQueryBuilder('user')
-        .where('user.id = :id', {id: id})
+        .where('user.email = :email', {email: email})
         .getOne()
 
         if(!user) throw new Error('No one user finded')
@@ -35,7 +35,7 @@ export class UsersRepository extends Repository<User>{
         .into(User)
         .values([
             { 
-               // id: newUser.id,
+                //id: newUser.id,
                 nickname: newUser.nickname, 
                 email: newUser.email,
                 isAdmin: newUser.isAdmin,

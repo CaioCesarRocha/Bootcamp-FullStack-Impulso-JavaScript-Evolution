@@ -16,10 +16,13 @@ class UsersService{
         
         return serializedUsers; 
     }
+    
 
-    async show(id: number): Promise<IUser>{      
-        var user = await this.userRepository.showProduct(id);
+    async show(email:string): Promise<IUser>{      
+        var user = await this.userRepository.show(email);
+
         user.avatar = `http://${process.env.MY_IP_LINUX}:5000/uploads/${user.avatar}`
+
         return user; 
     }
 

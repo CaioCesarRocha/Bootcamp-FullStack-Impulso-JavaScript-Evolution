@@ -1,18 +1,24 @@
-import { GoogleAuthProvider, signInWithPopup, User as FirebaseUser, signOut} from 'firebase/auth';
-import { createContext, useEffect, useState, useContext } from "react";
+import { GoogleAuthProvider, signInWithPopup, signOut, User as FirebaseUser, 
+    createUserWithEmailAndPassword, signInWithEmailAndPassword, ProviderId,   
+} from 'firebase/auth';
+import { createContext, useEffect, useState, } from "react";
 import Cookies from 'js-cookie';
 
-import User from '../model/User';
+import * as UsersService from '../../services/user.services';
+import {IUser} from '../../services/interfaces/user.interface';
+import UserLogin from '../../services/interfaces/userFirebase.interface';
 import { auth} from '../firebase/config'
 
 
 
-
 interface AuthContextProps{
-    user?: User | null,
+    user?: UserLogin | null,
     userLogged?: boolean, 
+    msgError?: string,
     loginGoogle?: () => Promise<void>,
-    logoutGoogle?: () => Promise<void>,
+    loginNormal?: (email: string, password: string) => Promise<void>
+    logout?: () => Promise<void>,
+    registerUser?: (email: string, password: string, confirmPassword: string) => Partial<void>,
 }
 
 const AuthContext= createContext<AuthContextProps>({    
@@ -20,17 +26,19 @@ const AuthContext= createContext<AuthContextProps>({
 
 
 //deixando os dados da forma como a gente quer receber
-async function normalizeUser(userFirebase: FirebaseUser): Promise<User>{
+async function normalizeUser(userFirebase: FirebaseUser): Promise<UserLogin>{
     const token = await userFirebase.getIdToken() // espera pegar o token
 
-    if(userFirebase.displayName && userFirebase.email && userFirebase.photoURL){
+    if(userFirebase.email){
+        const res = await UsersService.getDataUser(userFirebase.email)
+
         return {
-            uid: userFirebase.uid,
-            name: userFirebase?.displayName,
+            uid: res.id || userFirebase.uid,
+            name: res.nickname ||userFirebase?.displayName || '',
             email: userFirebase.email,
             token,
             provider: userFirebase.providerData[0].providerId,
-            imgUrl: userFirebase.photoURL
+            imgUrl: res?.avatar || userFirebase?.photoURL || ''
         }
     }
     else { return {uid: '', name: '', email: '', token: '', provider: '', imgUrl: ''}}
@@ -44,22 +52,21 @@ function handleCookie(logged: boolean){
             expires: 7 // os dados vão durar 7 dias
         })
     }
-    else{
-        Cookies.remove('dio-ecommerce-cod3r-auth') // se tiver deslogado, exclui os dados
-    }
+    else { Cookies.remove('dio-ecommerce-cod3r-auth') } // se tiver deslogado, exclui os dados 
 }
+
 
 
 export const AuthProvider = (props:any) =>{
     const [loading, setLoading] = useState(true)
     const [userLogged, setUserLogged] = useState<boolean>(false);
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<UserLogin | null>(null);
+    const [msgError, setMsgError] = useState<string>('')
 
-    const provider = new GoogleAuthProvider()
-
-
+    
+    //configurando a Sessão de acordo com o data do user recebido
     async function configSession(userFirebase: FirebaseUser | null){     
-        if(userFirebase?.email){ 
+        if(userFirebase?.email){      
             const userLogged = await normalizeUser(userFirebase)
             setUser(userLogged) 
             handleCookie(true)
@@ -73,23 +80,62 @@ export const AuthProvider = (props:any) =>{
         }
     }
 
-
     const loginGoogle = async() =>{              
         try{
+            const provider = new GoogleAuthProvider()
             setLoading(true)
-            const resp = await signInWithPopup(auth, provider)
-            await configSession(resp.user) 
+            const res = await signInWithPopup(auth, provider)
+            await configSession(res.user) 
             setUserLogged(true)
         } finally {
             setLoading(false)
         }           
     }
 
-    async function logoutGoogle(){
+
+    //login normal with email and password
+    async function loginNormal(email: string, password: string){ 
+        try{
+            setLoading(true)
+            const res = await signInWithEmailAndPassword(auth, email, password)
+            await configSession(res.user)
+                    
+            setUserLogged(true)
+        }catch(err){
+            if (err instanceof Error) setMsgError(err.message);
+            else setMsgError('Unknow Error')          
+        } finally {
+            setLoading(false)
+        }           
+    }
+
+
+     //função para registrar novo user com email e senha
+     async function registerUser(email: string, password: string, confirmPassword: string){ 
+        if(confirmPassword === password){
+            try{
+                setLoading(true)
+                const res = await createUserWithEmailAndPassword(auth, email, password)                 
+                const res_api = await UsersService.saveDataUser(res.user);
+                if(res_api === 201) {                  
+                    await configSession(res.user)
+                    setUserLogged(true)  
+                }                                         
+            }catch(err){
+                if (err instanceof Error) setMsgError(err.message);
+                else setMsgError('Unknow Error')          
+            }
+            finally { 
+                setLoading(false) 
+            }          
+        }else{ setMsgError('Repita as senhas corretamente')}            
+    }
+
+
+    async function logout(){
         try{
             setLoading(true)
             await signOut(auth);
-            //await firebase.auth().signOut();
             await configSession(null) // limpa as info do user
             setUserLogged(false)
         } finally{
@@ -102,8 +148,11 @@ export const AuthProvider = (props:any) =>{
         <AuthContext.Provider value={{
             user,
             userLogged,
+            msgError,
+            loginNormal,
             loginGoogle,
-            logoutGoogle,
+            logout,
+            registerUser,
         }}>
             {props.children}
         </AuthContext.Provider  >

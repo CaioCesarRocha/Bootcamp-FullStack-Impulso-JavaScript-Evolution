@@ -10,13 +10,13 @@ import useAuth from "../../data/hooks/useAuth"
 
 
 const Authentication = () =>{
-    const { userLogged, loginGoogle} = useAuth();
+    const { userLogged, loginGoogle, loginNormal, registerUser, msgError} = useAuth();
     const navigate = useNavigate();
     const [ screen, setScreen] = useState<'Login' | 'Register'>('Login')
     const [ email, setEmail] = useState<string>('')
     const [ password, setPassword] = useState<string>('')
     const [ confirmPassword, setConfirmPassword] = useState<string>('')
-    const [msgError, setMsgError] = useState<string | null>('')
+    const [newMsgError, setNewMsgError] = useState<string | null>('')
     const [renderError, setRenderError] = useState<boolean>(false);
 
 
@@ -24,9 +24,23 @@ const Authentication = () =>{
         if(userLogged === true) navigate('/') 
     },[userLogged])
 
+    useEffect(() =>{
+        if(msgError !== ''){
+            setNewMsgError(msgError || 'Unknow Error')
+            setRenderError(true)
+        }      
+    },[msgError])
+
 
     function handlSendData(){
-        console.log('datas', email, password, confirmPassword)
+        try{
+            if(screen=== 'Login') {loginNormal?.(email, password)}         
+            else if(screen=== 'Register') {registerUser?.(email, password, confirmPassword)}   
+        }catch(err){
+            if (err instanceof Error) setNewMsgError(err.message);
+            else setNewMsgError('Unknow Error');   
+            setRenderError(true)
+        }
     }
    
    
@@ -48,10 +62,10 @@ const Authentication = () =>{
                 </p>
 
                 {renderError ? 
-                    <p className={styles.ContentErrors}>
+                    <div className={styles.ContentErrors}>
                         <i>{icon.alert}</i>
-                        {msgError}
-                    </p>                 
+                        <a>{newMsgError}</a>
+                    </div>                 
                 :   null
                 }
                            
@@ -76,9 +90,7 @@ const Authentication = () =>{
 
                     {screen === 'Login' ? 
                         <p  className={styles.ForgetPassword}>                 
-                            <a onClick={() => handleForgotPassword()}>
-                                Esqueceu a senha?
-                            </a>
+                            <a onClick={() => handleForgotPassword()}> Esqueceu a senha? </a>
                         </p>
                     : 
                         <InputForm
@@ -94,25 +106,26 @@ const Authentication = () =>{
                     <ButtonForm
                         message={screen === 'Login' ? 'Entrar' : 'Cadastrar'}
                         onClick={() => handlSendData()}
-                    />
+                    />                
 
-                    <button className={styles.ButtonGoogle} onClick={loginGoogle}>
-                        Entrar com Google
-                        <i>{icon.google}</i>
-                    </button>
-
-                    {screen === 'Login' ? 
-                        <p className={styles.InfoLogin}>
-                            Novo por aqui?
-                            <a  onClick={() => {setScreen('Register'); setMsgError(null)}}>
-                                Crie uma conta grautitamente.
-                            </a>
-                        </p>
+                    {screen === 'Login' ?  
+                        <>
+                            <button className={styles.ButtonGoogle} onClick={loginGoogle}>
+                                Entrar com Google
+                                <i>{icon.google}</i>
+                            </button>
+                            <p className={styles.InfoLogin}>
+                                Novo por aqui?
+                                <a  onClick={() => {setScreen('Register'); setRenderError(false)}}>
+                                    Crie uma conta grautitamente.
+                                </a>
+                            </p>
+                        </>
                     :
                         <p className={styles.InfoLogin}>
                             Já tem uma conta?
-                            <a onClick={() => setScreen('Login')}>
-                                Faça login aqui.
+                            <a onClick={() => {setScreen('Login'); setRenderError(false)}}> 
+                                Faça login aqui. 
                             </a>
                         </p>              
                     }

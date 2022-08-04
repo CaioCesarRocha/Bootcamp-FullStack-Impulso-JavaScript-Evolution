@@ -10,7 +10,7 @@ const usersRoutes = Router();
 
 usersRoutes.get('/users', UsersController.index);
 
-usersRoutes.get('/users/:id', UsersController.show);
+usersRoutes.get('/users/:email', UsersController.show);
 
 usersRoutes.post('/users', upload.single("avatar"), UsersController.create );
 

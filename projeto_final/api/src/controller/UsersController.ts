@@ -19,14 +19,14 @@ class UsersController {
 
 
     public show = async(request: Request, response: Response, next: NextFunction) => { 
-        const id: number = parseInt(request.params.id) 
+        const email: string = request.params.email
         try{
-            const user = await this.userService.show(id);
+            const user = await this.userService.show(email);
     
             return response.status(200).json({user}) 
         }catch(error){
             error.statusCode = 400;
-            error.message=`User with id(${id}) don't exist or connection refused`
+            error.message=`User with email(${email}) don't exist or connection refused`
             next(error)
         }     
     }
@@ -37,7 +37,7 @@ class UsersController {
             const imgAvatar = request.file?.filename
 
             var newUser = request.body
-            newUser = {...newUser, "avatar": imgAvatar}
+            newUser = {...newUser, "avatar": imgAvatar || 'Add Foto'}
    
             const user = await this.userService.create({newUser});
     
