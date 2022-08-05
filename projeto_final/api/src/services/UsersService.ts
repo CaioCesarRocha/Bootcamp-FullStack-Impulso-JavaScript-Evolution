@@ -1,6 +1,8 @@
 import { getCustomRepository} from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 import {IUser, IRequestUser} from '../services/interfaces/UsersInterface';
 import { UsersRepository } from '../repository/Users.repository';
+import { idText } from 'typescript';
 
 
 class UsersService{
@@ -28,9 +30,14 @@ class UsersService{
 
 
 
-    async create({newUser}: IRequestUser): Promise<boolean>{       
+    async create({newUser}: IRequestUser): Promise<boolean>{     
         if(newUser.nickname.length === 0 || newUser.email.length === 0 || newUser.avatar.length === 0) {
             throw new Error('Inform all fields')
+        }
+
+        if(!newUser.id){
+            const newId = uuidv4();
+            newUser = {...newUser, id: newId}
         }
 
         const user = await this.userRepository.createUser({newUser});
@@ -53,7 +60,7 @@ class UsersService{
     }
 
 
-    async delete(id: number){
+    async delete(id: string){
         if(!id) throw new Error('ID not informed')
 
         const user = await this.userRepository.deleteProduct(id)

@@ -131,3 +131,17 @@
         color:rgb(58, 56, 56);
     }
 }
+
+.ContentLoading{
+    display: flex;
+    margin-top: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+}
+
+.ContentLoading a{
+    margin-left: 10px;
+}

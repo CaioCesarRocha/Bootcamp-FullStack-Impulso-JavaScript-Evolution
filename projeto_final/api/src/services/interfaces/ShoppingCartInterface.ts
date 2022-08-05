@@ -1,6 +1,6 @@
 export interface IItem{
     id?:number;
-    user_id: number;
+    user_id: string;
     product_id: number;
 }
 

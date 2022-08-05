@@ -81,9 +81,18 @@ $color-default: #023480;
     margin-left: 5px;
 }
 
+
 .ContentButton{
-    align-self: flex-end;
-    margin: 0 auto;
-    margin-top: 10px;
-    width: 80%;
+    background-color: #233291;
+    height: 30px;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 12px;
+    width: 90%;
+    cursor: pointer;
+
+    &:hover{
+        color: #233291;
+        background-color: #fff;
+    }
 }

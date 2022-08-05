@@ -37,8 +37,10 @@ class UsersController {
             const imgAvatar = request.file?.filename
 
             var newUser = request.body
-            newUser = {...newUser, "avatar": imgAvatar || 'Add Foto'}
-   
+            newUser = {...newUser, "avatar": imgAvatar || 'noAvatar'}
+            
+           if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
+
             const user = await this.userService.create({newUser});
     
             return response.status(201).json({user})
@@ -56,7 +58,7 @@ class UsersController {
             var newUser = request.body;
             newUser = {...newUser, "avatar": imgAvatar};   
 
-            const id = parseInt(request.params.id)
+            const id = request.params.id;
 
             const user = await this.userService.update({id, newUser});
 
@@ -70,7 +72,7 @@ class UsersController {
 
 
     public delete = async(request: Request, response: Response, next: NextFunction) =>{
-        const id = parseInt(request.params.id) 
+        const id = request.params.id 
 
         try{
             const user = await this.userService.delete(id);
@@ -83,3 +85,4 @@ class UsersController {
 
 
 export default new UsersController(UsersService)
+

@@ -1,5 +1,5 @@
 export interface IUser{
-    id?:number;
+    id?:string;
     nickname: string,
     email: string,
     isAdmin: boolean,
@@ -7,6 +7,6 @@ export interface IUser{
 }
 
 export interface IRequestUser{
-    id?: number,
+    id?: string,
     newUser: IUser
 }

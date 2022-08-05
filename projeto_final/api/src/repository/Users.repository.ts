@@ -28,14 +28,14 @@ export class UsersRepository extends Repository<User>{
     }
 
 
-    async createUser({newUser}: Partial<IRequestUser> ){
-        const product = await getRepository(User)
+    async createUser({newUser}: Partial<IRequestUser> ){     
+        const user = await getRepository(User)
         .createQueryBuilder()
         .insert()
         .into(User)
         .values([
             { 
-                //id: newUser.id,
+                id: newUser.id,
                 nickname: newUser.nickname, 
                 email: newUser.email,
                 isAdmin: newUser.isAdmin,
@@ -44,7 +44,7 @@ export class UsersRepository extends Repository<User>{
         ])
         .execute()
 
-        return product; 
+        return user;      
     }
 
 
@@ -71,7 +71,7 @@ export class UsersRepository extends Repository<User>{
     }
     
 
-    async deleteProduct(id: number){
+    async deleteProduct(id: string){
         const user = await getRepository(User)
         .createQueryBuilder('product')
         .delete()

@@ -5,7 +5,6 @@ import { createContext, useEffect, useState, } from "react";
 import Cookies from 'js-cookie';
 
 import * as UsersService from '../../services/user.services';
-import {IUser} from '../../services/interfaces/user.interface';
 import UserLogin from '../../services/interfaces/userFirebase.interface';
 import { auth} from '../firebase/config'
 
@@ -14,6 +13,7 @@ import { auth} from '../firebase/config'
 interface AuthContextProps{
     user?: UserLogin | null,
     userLogged?: boolean, 
+    loading?: boolean,
     msgError?: string,
     loginGoogle?: () => Promise<void>,
     loginNormal?: (email: string, password: string) => Promise<void>
@@ -58,7 +58,7 @@ function handleCookie(logged: boolean){
 
 
 export const AuthProvider = (props:any) =>{
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [userLogged, setUserLogged] = useState<boolean>(false);
     const [user, setUser] = useState<UserLogin | null>(null);
     const [msgError, setMsgError] = useState<string>('')
@@ -83,8 +83,9 @@ export const AuthProvider = (props:any) =>{
     const loginGoogle = async() =>{              
         try{
             const provider = new GoogleAuthProvider()
-            setLoading(true)
-            const res = await signInWithPopup(auth, provider)
+            
+            const res = await signInWithPopup(auth, provider);
+            setLoading(true);
             await configSession(res.user) 
             setUserLogged(true)
         } finally {
@@ -148,6 +149,7 @@ export const AuthProvider = (props:any) =>{
         <AuthContext.Provider value={{
             user,
             userLogged,
+            loading,
             msgError,
             loginNormal,
             loginGoogle,

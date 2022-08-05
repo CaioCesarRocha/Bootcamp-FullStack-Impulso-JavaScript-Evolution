@@ -1,5 +1,6 @@
 import { useState,  ChangeEvent, useEffect, } from "react"
 import { useNavigate } from "react-router-dom";
+import { Puff } from  'react-loader-spinner';
 
 import styles from "./Authentication.module.scss"
 import * as icon from '../../components/icons/index'
@@ -8,9 +9,8 @@ import ButtonForm from "../../components/form/ButtonForm/buttonForm"
 import useAuth from "../../data/hooks/useAuth"
 
 
-
 const Authentication = () =>{
-    const { userLogged, loginGoogle, loginNormal, registerUser, msgError} = useAuth();
+    const { userLogged, loginGoogle, loginNormal, registerUser, msgError,loading} = useAuth();
     const navigate = useNavigate();
     const [ screen, setScreen] = useState<'Login' | 'Register'>('Login')
     const [ email, setEmail] = useState<string>('')
@@ -106,7 +106,15 @@ const Authentication = () =>{
                     <ButtonForm
                         message={screen === 'Login' ? 'Entrar' : 'Cadastrar'}
                         onClick={() => handlSendData()}
-                    />                
+                    />    
+
+                    {loading  ? 
+                        <div className={styles.ContentLoading}>
+                            <Puff height = "40" width = "40"color = 'white'/>
+                            <a> Autenticando Usuário...</a>
+                        </div>
+                    :   null
+                    }            
 
                     {screen === 'Login' ?  
                         <>

@@ -7,7 +7,7 @@ class ShoppingCart extends BaseEntity{
     id: number;
 
     @Column()
-    user_id: number;
+    user_id: string;
 
     @Column()
     product_id: number;
