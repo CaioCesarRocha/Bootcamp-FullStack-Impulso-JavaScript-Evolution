@@ -1,5 +1,6 @@
 import { User as FirebaseUser } from 'firebase/auth';
 import {IUser} from './interfaces/user.interface';
+import {IProduct} from './interfaces/product.interface';
 import * as UserRepository from '../repository/user.repository';
 
 
@@ -20,3 +21,16 @@ export async function saveDataUser(user: FirebaseUser): Promise<number>{
     const response = await UserRepository.saveDataUser(dataUser)
     return response;
 }
+
+
+export async function addProduct(user_id: string, product_id: number,): Promise<number>{
+    const newItem = await UserRepository.addProduct(user_id, product_id);
+    return newItem;
+}
+
+export async function getShoppingCart(user_id: string): Promise<IProduct[]>{
+    const products = await UserRepository.getShoppingCart(user_id);
+    return products;
+}
+
+

@@ -12,7 +12,7 @@ import { getModeForResolutionAtIndex } from 'typescript';
 @EntityRepository(ShoppingCart)
 export class ShoppingCartRepository extends Repository<ShoppingCart>{
     
-    async index(id: number): Promise<IProduct[]>{
+    async index(id: string): Promise<IProduct[]>{
         const idsItems = await getRepository(ShoppingCart)
         .createQueryBuilder('item')
         .where('item.user_id = :id', {id: id})

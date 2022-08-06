@@ -8,7 +8,7 @@ class ShoppingCartController {
 
 
     public index = async(request: Request, response: Response, next: NextFunction) =>{
-        const id: number = parseInt(request.params.id)
+        const id = request.params.id
         try{
             const products = await this.shoppingCartService.index(id);
     

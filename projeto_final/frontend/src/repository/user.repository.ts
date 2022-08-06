@@ -1,5 +1,6 @@
 import api from '../services/Connection/api';
 import {IUser} from '../services/interfaces/user.interface';
+import { IProduct } from '../services/interfaces/product.interface';
 
 
 export async function getDataUser(email: string): Promise<IUser>{
@@ -19,5 +20,28 @@ export async function saveDataUser(dataUser: FormData): Promise<number>{
         return response.status;
     }catch(err){
         return 400
+    } 
+}
+
+
+export async function addProduct(user_id: string, product_id: number): Promise<number>{
+    try{
+        const newItem = {user_id, product_id}
+        const response = await api.post(`/shoppingcart`, newItem); 
+        return response.status;
+    }catch(err){
+        return 400
+    } 
+}
+
+
+export async function getShoppingCart(user_id: string): Promise<IProduct[]>{
+    try{
+        const response = await api.get(`/shoppingcart/${user_id}`); 
+        return response.data.products
+    }catch(err){
+        console.log(err)
+        const response: IProduct[] = []
+        return response;
     } 
 }

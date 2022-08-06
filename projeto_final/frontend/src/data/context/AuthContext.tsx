@@ -30,14 +30,17 @@ async function normalizeUser(userFirebase: FirebaseUser): Promise<UserLogin>{
     const token = await userFirebase.getIdToken() // espera pegar o token
 
     if(userFirebase.email){
-        const res = await UsersService.getDataUser(userFirebase.email)
+        //checa se ja existe um usuário no banco para pegarmos os dados atualizados
+        const res = await UsersService.getDataUser(userFirebase.email)  
+        //se ainda nao existir, é necessário inserir
+        if(res?.email.length === 0) await UsersService.saveDataUser(userFirebase);
 
         return {
-            uid: res.id || userFirebase.uid,
-            name: res.nickname ||userFirebase?.displayName || '',
-            email: userFirebase.email,
+            uid: res?.id || userFirebase?.uid,
+            name: res?.nickname ||userFirebase?.displayName || '',
+            email: userFirebase?.email,
             token,
-            provider: userFirebase.providerData[0].providerId,
+            provider: userFirebase?.providerData[0].providerId,
             imgUrl: res?.avatar || userFirebase?.photoURL || ''
         }
     }

@@ -20,7 +20,7 @@ const NavBar = () =>{
                 </a>
             </>
 
-            <a onClick={() => navigate('/Favorites')} className={styles.ContainerOptions}>
+            <a onClick={() => navigate('/ShoppingCart')} className={styles.ContainerOptions}>
                 <div className={styles.NumShopCart}> 0</div>
                 <i>{icon.shopCart}</i>
             </a>

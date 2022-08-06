@@ -39,7 +39,7 @@ class UsersController {
             var newUser = request.body
             newUser = {...newUser, "avatar": imgAvatar || 'noAvatar'}
             
-           if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
+           //if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
 
             const user = await this.userService.create({newUser});
     

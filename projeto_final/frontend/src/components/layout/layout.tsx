@@ -16,7 +16,8 @@ const Layout = (props: PropsLayout) =>{
     const navigate = useNavigate();
 
     useEffect(() =>{
-        console.log('user', user)
+        console.log('user', user?.imgUrl)
+        console.log(`http://${process.env.REACT_APP_LINUX_IP}:5000/uploads/noAvatar`)
     },[])
 
     return(   
@@ -27,7 +28,7 @@ const Layout = (props: PropsLayout) =>{
                     <a onClick={() => navigate('/Perfil')}>
                         {user?.name || 'Fazer login'}
                     </a>
-                    {user?.imgUrl === 'http://192.168.157.186:5000/uploads/noAvatar' ?
+                    {user?.imgUrl === `http://${process.env.REACT_APP_LINUX_IP}:5000/uploads/noAvatar` ?
                     <img 
                         onClick={() => navigate('/Perfil')}
                         src={'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/User.svg/2048px-User.svg.png'}

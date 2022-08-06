@@ -5,7 +5,7 @@ import useAuth from '../../data/hooks/useAuth';
 import * as UsersService from '../../services/user.services';
 import * as icon from '../icons/index';
 import SuccessAlert from '../alert/succesAlert';
-import userEvent from '@testing-library/user-event';
+
 
 interface propsProduct{
     id: number,
@@ -19,14 +19,15 @@ const CardItem = (props: propsProduct) =>{
     const navigate = useNavigate();
     const { userLogged, user } = useAuth();
 
-    const handleAddProduct = (product_id: number) =>{
-        if(!userLogged){
+
+    const handleAddProduct = async(product_id: number) =>{
+        if(userLogged && user?.uid){
+            const res = await UsersService.addProduct(user?.uid, product_id );
+            if(res === 201) alert('Produto cadastrado')
+        }else{
             alert('Necessário fazer login')
             navigate('/authentication');
         }
-           //const res = UsersService.AddProduct(user?.uid, product_id );
-           //if(res === 201) alert('Produto cadastrado')
-
     }
 
     return (

@@ -8,10 +8,16 @@ import { ShoppingCartRepository } from '../repository/ShoppingCart.repository';
 class ShoppingCartService{
     constructor(private readonly shoppingCartRepository: ShoppingCartRepository) {}
 
-    async index(id: number): Promise<IProduct[]>{
-        const products = await this.shoppingCartRepository.index(id);
+    async index(id: string): Promise<IProduct[]>{
+        var products = await this.shoppingCartRepository.index(id);
 
-        return products
+        const serializedProducts = products.map(product =>{
+            product.image = `http://${process.env.MY_IP_LINUX}:5000/uploads/${product.image}`
+            return {...product}
+        })
+        
+
+        return serializedProducts;
     }
 
 

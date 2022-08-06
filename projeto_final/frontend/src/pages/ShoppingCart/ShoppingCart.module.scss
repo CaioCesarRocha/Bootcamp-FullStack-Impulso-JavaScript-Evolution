@@ -1,0 +1,63 @@
+@import '../../services/break-points.scss';
+
+
+.Container{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 90%; 
+    padding-bottom: 15px;    
+}
+
+.Container h2{
+    font-size: 25px;
+    color: rgb(33, 33, 116);
+    font-style: italic;
+    
+    @include tablet {
+        font-size: 40px;
+    }
+    
+}
+
+.RenderContent{
+    margin-top: 10px;
+    //background-color: #59bb66;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.ContentNotFound{
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    background-color: rgb(245, 83, 83);
+    color: white;
+    border-radius: 5px;
+    padding: 8px;
+    width: 90%;
+    margin-top: 20px;
+    align-items: center;
+
+    @include tablet {
+        width: 350px;
+    }
+    @include laptop {
+        width: 400px;
+    }
+    @include desktop {
+        width: 550px;
+    }
+}
+
+.ContentNotFound i {
+    font-size: 40px;
+}
+
+.ContentNotFound p{
+    font-size: 20px;
+    
+    padding-left: 20px;
+}
