@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
+import { toast} from 'react-toastify';
+
 
 import styles from './CreateProduct.module.scss';
 import Layout from '../../components/layout/layout';
-import Dropzone from '../../components/dropzone/dropzone'
+import Dropzone from '../../components/dropzone/dropzone';
+import Alert from '../../components/alerts/alert';
 import InputForm from '../../components/form/inputForm/inputForm';
 import ErrorForm from '../../components/form/errorForm/errorForm';
 import ButtonForm from '../../components/form/ButtonForm/buttonForm';
@@ -28,11 +31,11 @@ const CreateProduct = () =>{
 
                 if(response === 201){
                     //formik.resetForm();
-                    alert(`Produto ${data.name} cadastrado com sucesso!`);
+                    toast.success(`Produto ${data.name} cadastrado com sucesso!`);
                     //navigate('/')
-                }else if(response === 400) alert('Produto com este nome já existe no banco!')              
+                }else if(response === 400) toast.error('Produto com este nome já existe no banco!')              
             } 
-            else{ alert('Selecione uma imagem') }        
+            else{ toast.warn('Selecione uma imagem') }        
         }
     });
 
@@ -40,7 +43,7 @@ const CreateProduct = () =>{
     return(
         <Layout>
             <div className={styles.Content}>
-                       
+                <Alert theme='colored'/>       
                 <form
                     className={styles.Form}
                     onSubmit={formik.handleSubmit}

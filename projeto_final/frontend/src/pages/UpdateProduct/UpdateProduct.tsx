@@ -1,9 +1,12 @@
 import { useState , useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from './UpdateProduct.module.scss';
 import Layout from '../../components/layout/layout';
+import Alert from '../../components/alerts/alert';
 import Dropzone from '../../components/dropzone/dropzone'
 import InputForm from '../../components/form/inputForm/inputForm';
 import ErrorForm from '../../components/form/errorForm/errorForm';
@@ -30,12 +33,13 @@ const UpdateProduct = () =>{
         getValuesProduct()
     }, [])
 
+
     const handleResult = (response: number, name: string) =>{
         if(response === 200){
             //formik.resetForm();
-            alert(`Produto ${name} atualizado com sucesso!`);
+            toast.success(`Produto ${name} atualizado com sucesso!`);
             //navigate('/')
-        }else if(response === 400) alert('Produto com este nome já existe no banco!'); 
+        }else if(response === 400) toast.error('Produto com este nome já existe no banco!'); 
     } 
 
 
@@ -62,6 +66,7 @@ const UpdateProduct = () =>{
     return (
         <Layout>
             <div className={styles.Content}>
+                <Alert theme='colored'/>
                 <form
                     className={styles.Form}
                     onSubmit={formik.handleSubmit}
@@ -125,7 +130,6 @@ const UpdateProduct = () =>{
                             </div>
                         </div>
                     </div>
-
                     <ButtonForm message='Enviar Atualização'/>
                 </form>
             </div>

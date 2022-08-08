@@ -6,7 +6,6 @@ import * as icon from '../../components/icons/index';
 import Layout from '../../components/layout/layout';
 import * as ProductService from '../../services/product.services';
 import {IProduct} from '../../services/interfaces/product.interface';
-import SuccessAlert from '../../components/alert/succesAlert';
 
 
 const ShowProduct = () =>{
@@ -60,10 +59,9 @@ const ShowProduct = () =>{
                         </div>
                         
                         {product.quantity !== 0 ?
-                            <SuccessAlert 
-                                textButton='Finalizar Compra'
-                                message='Compra finalizada com sucesso.'
-                            />
+                            <button  className={styles.FinishOKShop}>
+                                Finalizar Compra
+                            </button>
                         :
                             <button style={{ backgroundColor:'#ccc', color: 'white', cursor: 'text'}} 
                                 className={styles.FinishOKShop}

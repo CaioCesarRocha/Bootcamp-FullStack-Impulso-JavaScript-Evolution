@@ -56,3 +56,13 @@ export async function updateProduct(id: string, dataProduct: FormData): Promise<
         return 400
     } 
 }
+
+export async function deleteProduct(id: number): Promise<boolean>{
+    try{
+        const response = await api.delete(`/products/${id}`)
+        return response.data.product;
+    }catch(err){
+        console.log(err)
+        return false;
+    }
+}

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from './ShoppingCart.module.scss'
 import Layout from '../../components/layout/layout';
+import Alert from '../../components/alerts/alert';
 import CardItem from '../../components/cardItem/cardItem';
 import * as icon from '../../components/icons/index';
 import * as UsersService from '../../services/user.services';
@@ -19,9 +22,9 @@ const ShoppingCart = () =>{
             if(userLogged && user?.uid){
                 const response: IProduct[] = await UsersService.getShoppingCart(user?.uid);
                 setProducts(response)   
-            }else{
-                alert('Necessário fazer login')
-                navigate('/authentication');
+            }else{              
+                toast.info('Necessário fazer login')
+                navigate('/authentication');            
             }             
         }
         getProducts()
@@ -30,6 +33,7 @@ const ShoppingCart = () =>{
     return (
         <Layout>
             <div className={styles.Container}>
+                <Alert theme='colored'/>
                 <h2> Meu Carrinho</h2>
                 {products.length > 0 ?                     
                     <div className={styles.RenderContent}>
@@ -41,6 +45,8 @@ const ShoppingCart = () =>{
                                 price={product.price}
                                 image={product.image}
                                 size={product.size}
+                                infoButton={'Remover da Lista'}
+                                colorButton={'#d14947'}
                             />
                         ))}              
                     </div>

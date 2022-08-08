@@ -47,7 +47,8 @@ header a i{
     }
 }
 
-.ContainerOptions{
+
+.Option{
     display: flex;
     width: 12%;
     vertical-align: middle;
@@ -61,6 +62,10 @@ header a i{
 
     @include laptop {
         width: 6%;
+    }
+
+    &:hover{
+        color: rgb(36, 33, 190);
     }
 }
 

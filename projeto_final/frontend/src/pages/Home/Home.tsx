@@ -57,6 +57,7 @@ const Home = () =>{
                                 price={product.price}
                                 image={product.image}
                                 size={product.size}
+                                infoButton={'Adicionar'}
                             />
                         ))}              
                     </div>

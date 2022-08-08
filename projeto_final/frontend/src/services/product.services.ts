@@ -23,8 +23,6 @@ export async function getSearchProducts(search: string): Promise<IProduct[]>{
 }
 
 
-
-
 export async function createProduct(data: FormValuesCreateProduct, file: File): Promise<number>{
     const dataProduct = new FormData(); 
 
@@ -51,5 +49,12 @@ export async function updateProduct( id:string,data: FormValuesProduct, file?: F
     else dataProduct.append('image', '')
 
     const response = await ProductRepository.updateProduct(id, dataProduct)
+    return response;
+}
+
+
+export async function deleteProduct(id: number): Promise<boolean>{
+    const response = await ProductRepository.deleteProduct(id);
+
     return response;
 }

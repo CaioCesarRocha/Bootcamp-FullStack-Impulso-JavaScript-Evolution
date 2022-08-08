@@ -1,8 +1,14 @@
 import { FiSearch, FiEdit,  FiHeart, FiShoppingCart , FiAlertCircle, FiUpload, FiFrown, FiLogOut} 
     from "react-icons/fi";
+import { MdAddCircle, MdDeleteForever, MdNewReleases} from "react-icons/md";
 
 import { FcGoogle } from "react-icons/fc";
 
+export const exclude = (<MdDeleteForever/>);
+
+export const attention = (<MdNewReleases/>)
+
+export const add = (<MdAddCircle/>)
 
 export const logout = (<FiLogOut/>)
 

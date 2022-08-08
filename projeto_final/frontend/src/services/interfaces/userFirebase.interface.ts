@@ -5,4 +5,5 @@ export default interface UserLogin {
     token: string,
     provider: string, //para saber se logou por email&senha ou pelo google
     imgUrl: string,
+    isAdmin?: boolean
 }

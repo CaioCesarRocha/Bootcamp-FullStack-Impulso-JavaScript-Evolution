@@ -41,10 +41,11 @@ async function normalizeUser(userFirebase: FirebaseUser): Promise<UserLogin>{
             email: userFirebase?.email,
             token,
             provider: userFirebase?.providerData[0].providerId,
-            imgUrl: res?.avatar || userFirebase?.photoURL || ''
+            imgUrl: res?.avatar || userFirebase?.photoURL || '',
+            isAdmin: res?.isAdmin || false
         }
     }
-    else { return {uid: '', name: '', email: '', token: '', provider: '', imgUrl: ''}}
+    else { return {uid: '', name: '', email: '', token: '', provider: '', imgUrl: '', isAdmin: false}}
 }
 
 

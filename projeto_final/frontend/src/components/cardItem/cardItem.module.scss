@@ -20,17 +20,25 @@ $color-default: #023480;
     height: 210px;
 }
 
+.ContainerOptions{
+    display: flex;
+    width: 40%;
+    align-self: end;
+    justify-content: space-around;
+}
+
 .ContentInfo{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .ContentInfo a{
     cursor: pointer;
     font-size: 22px;
     font-weight: 800;
-    margin-top: 10px;
+    margin-top: 5px;
     color: $color-default;
 
     &:hover{
@@ -90,6 +98,7 @@ $color-default: #023480;
     border-radius: 12px;
     width: 90%;
     cursor: pointer;
+    margin-top: 8px;
 
     &:hover{
         color: #233291;
