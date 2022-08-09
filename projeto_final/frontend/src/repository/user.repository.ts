@@ -34,6 +34,16 @@ export async function addProduct(user_id: string, product_id: number): Promise<n
     } 
 }
 
+export async function removeProduct(user_id: string, product_id: number): Promise<boolean>{
+    try{
+        const response = await api.delete(`/shoppingcart/${user_id}/${product_id}`); 
+        return response.data.products;
+    }catch(err){
+        return false
+    } 
+}
+
+
 
 export async function getShoppingCart(user_id: string): Promise<IProduct[]>{
     try{

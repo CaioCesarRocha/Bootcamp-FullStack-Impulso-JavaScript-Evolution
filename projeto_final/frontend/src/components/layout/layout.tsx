@@ -1,10 +1,10 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ForceAuthentication from '../forceAuthentication/forceAuthentication';
 import NavBar from "../navBar/navBar";
 import styles from "./layout.module.scss";
 import useAuth from '../../data/hooks/useAuth'
+import { useEffect } from "react";
 
 
 interface PropsLayout{
@@ -14,15 +14,14 @@ interface PropsLayout{
 const Layout = (props: PropsLayout) =>{
     const {user} = useAuth();
     const navigate = useNavigate();
-
+    
     useEffect(() =>{
-        console.log('user', user?.imgUrl)
-        console.log(`http://${process.env.REACT_APP_LINUX_IP}:5000/uploads/noAvatar`)
+        console.log('userLayout', user)
     },[])
 
     return(   
         <ForceAuthentication>    
-            <div className={styles.Content}>
+            <div className={styles.Content}>             
                 <NavBar/>
                 <div className={styles.ContentPerfil}>
                     <a onClick={() => navigate('/Perfil')}>

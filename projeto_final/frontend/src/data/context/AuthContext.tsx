@@ -1,12 +1,12 @@
 import { GoogleAuthProvider, signInWithPopup, signOut, User as FirebaseUser, 
-    createUserWithEmailAndPassword, signInWithEmailAndPassword, ProviderId,   
+    createUserWithEmailAndPassword, signInWithEmailAndPassword, onIdTokenChanged,   
 } from 'firebase/auth';
 import { createContext, useEffect, useState, } from "react";
 import Cookies from 'js-cookie';
 
 import * as UsersService from '../../services/user.services';
 import UserLogin from '../../services/interfaces/userFirebase.interface';
-import { auth} from '../firebase/config'
+import { auth} from '../firebase/config';
 
 
 
@@ -49,6 +49,8 @@ async function normalizeUser(userFirebase: FirebaseUser): Promise<UserLogin>{
 }
 
 
+
+
 // salvando os dados do usuário em um cookie para nao perde-los no refresh da page...
 function handleCookie(logged: boolean){
     if(logged){
@@ -62,18 +64,19 @@ function handleCookie(logged: boolean){
 
 
 export const AuthProvider = (props:any) =>{
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [userLogged, setUserLogged] = useState<boolean>(false);
     const [user, setUser] = useState<UserLogin | null>(null);
-    const [msgError, setMsgError] = useState<string>('')
+    const [msgError, setMsgError] = useState<string>('');
 
-    
+ 
     //configurando a Sessão de acordo com o data do user recebido
     async function configSession(userFirebase: FirebaseUser | null){     
         if(userFirebase?.email){      
             const userLogged = await normalizeUser(userFirebase)
-            setUser(userLogged) 
+            setUser(userLogged)
             handleCookie(true)
+            setUserLogged(true)
             setLoading(false)
             return userLogged.email //será usado para detectar quando o usuario mudou
         }else{
@@ -147,6 +150,17 @@ export const AuthProvider = (props:any) =>{
             setLoading(false)
         }        
     }
+
+    useEffect(() =>{
+        //esse metodo vai checar se ja existe um usuário mudou, em relaçaõ ao q estava logado antes
+        //se tiver mudado ele chama a config session para passar os dados dnv(do user q logou a 1 vez)
+        setLoading(true)
+        if(Cookies.get('dio-ecommerce-cod3r-auth')){ //ter ctz q ja logou em algum momento
+            const cancel = onIdTokenChanged(auth, configSession)
+            return () => cancel() //quando componente for desmontado ele para de observar se mudou id /\
+        }
+        else setLoading(false)    
+    }, [])
 
 
     return (

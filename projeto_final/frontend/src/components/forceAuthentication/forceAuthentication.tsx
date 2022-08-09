@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Puff } from  'react-loader-spinner';
 
-import styles from './forceAuthentication.module.scss'
+import styles from './forceAuthentication.module.scss';
 import useAuth from '../../data/hooks/useAuth';
 
 
 export default function ForceAuthentication(props: any){
-    const { loading, user} = useAuth();   
+    const { loading, user} = useAuth(); 
     const navigate = useNavigate();
-    const [renderContent, setRenderContent] = useState(false)
+    const [renderContent, setRenderContent] = useState<boolean>(false)
 
 
     useEffect(() =>{
@@ -18,8 +18,9 @@ export default function ForceAuthentication(props: any){
         //se tiver só carregando entao libera o gif Loading...
         else if(loading) setRenderContent(false)
         // Se nao tiver carregando e sem user setado então força autenticação
+        //else{ console.log('navegou auentication')}
         else navigate('/authentication')  
-    }, [])
+    }, [loading])
 
 
     return(
@@ -41,9 +42,8 @@ export default function ForceAuthentication(props: any){
                 </>             
             :   
                 <div className={styles.RenderLoading}>   
-                    <p>Carregando tela....</p>
-                    <Puff height = "80" width = "80"color = 'white'/>
-                </div>  
+                    <Puff height = "150" width = "150"color = '#1067e0'/>
+                </div> 
             }         
         </div>
     )    

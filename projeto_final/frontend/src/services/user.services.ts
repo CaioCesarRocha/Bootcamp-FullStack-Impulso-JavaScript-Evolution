@@ -1,3 +1,6 @@
+import { useDispatch } from "react-redux";
+
+import { setProductsList } from "../redux/reducers/productsReducer";
 import { User as FirebaseUser } from 'firebase/auth';
 import {IUser} from './interfaces/user.interface';
 import {IProduct} from './interfaces/product.interface';
@@ -28,8 +31,15 @@ export async function addProduct(user_id: string, product_id: number,): Promise<
     return newItem;
 }
 
+export async function removeProduct(user_id: string, product_id: number,): Promise<boolean>{
+    const response = await UserRepository.removeProduct(user_id, product_id);
+    return response;
+}
+
+
 export async function getShoppingCart(user_id: string): Promise<IProduct[]>{
     const products = await UserRepository.getShoppingCart(user_id);
+
     return products;
 }
 

@@ -30,7 +30,7 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
 
 
 
-    async createUser({newItem}: Partial<IRequestItem> ){
+    async createUserProduct({newItem}: Partial<IRequestItem> ){
         const product = await getRepository(ShoppingCart)
         .createQueryBuilder()
         .insert()
@@ -44,5 +44,19 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         .execute()
 
         return product; 
+    }
+
+    async deleteUserProduct(user_id: string, product_id: number){
+        const product = await getRepository(ShoppingCart)
+        .createQueryBuilder()
+        .delete()
+        .from(ShoppingCart)
+        .where('user_id = :user_id', {user_id: user_id})
+        .andWhere('product_id = :product_id', {product_id: product_id})
+        .execute()
+
+        if(!product) throw new Error('Cant possible maked a connection')
+
+        return true;
     }
 }

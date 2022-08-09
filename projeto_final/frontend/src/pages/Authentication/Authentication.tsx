@@ -10,7 +10,7 @@ import useAuth from "../../data/hooks/useAuth"
 
 
 const Authentication = () =>{
-    const { userLogged, loginGoogle, loginNormal, registerUser, msgError,loading} = useAuth();
+    const { user,userLogged, loginGoogle, loginNormal, registerUser, msgError,loading} = useAuth();
     const navigate = useNavigate();
     const [ screen, setScreen] = useState<'Login' | 'Register'>('Login')
     const [ email, setEmail] = useState<string>('')
@@ -20,7 +20,8 @@ const Authentication = () =>{
     const [renderError, setRenderError] = useState<boolean>(false);
 
 
-    useEffect(() =>{ 
+    useEffect(() =>{
+        console.log('user', user)
         if(userLogged === true) navigate('/') 
     },[userLogged])
 

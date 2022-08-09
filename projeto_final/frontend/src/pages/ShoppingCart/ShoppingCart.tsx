@@ -3,32 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import styles from './ShoppingCart.module.scss'
+
+import styles from './ShoppingCart.module.scss';
+import * as UsersService from '../../services/user.services';
+import { IProduct } from '../../services/interfaces/product.interface'
+import { useAppSelector } from '../../redux/useAppSelector';
 import Layout from '../../components/layout/layout';
 import Alert from '../../components/alerts/alert';
 import CardItem from '../../components/cardItem/cardItem';
 import * as icon from '../../components/icons/index';
-import * as UsersService from '../../services/user.services';
-import { IProduct } from '../../services/interfaces/product.interface'
-import useAuth from '../../data/hooks/useAuth';
+
 
 const ShoppingCart = () =>{
-    const [products, setProducts] = useState<IProduct[]>([])
-    const navigate = useNavigate();
-    const {user, userLogged} = useAuth();
+    const [products, setProducts] = useState<IProduct[]>([]);
+
+    const listProducts = useAppSelector(state => state.products.productsList);
+
 
     useEffect(() =>{
-        async function getProducts(){
-            if(userLogged && user?.uid){
-                const response: IProduct[] = await UsersService.getShoppingCart(user?.uid);
-                setProducts(response)   
-            }else{              
-                toast.info('Necessário fazer login')
-                navigate('/authentication');            
-            }             
-        }
-        getProducts()
-    }, [])
+        setProducts(listProducts)
+    }, [listProducts])
 
     return (
         <Layout>
