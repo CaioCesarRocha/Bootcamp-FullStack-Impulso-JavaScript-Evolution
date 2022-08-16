@@ -6,7 +6,11 @@
     margin: 0 auto;
     padding: 1em 0em 0em 0em;
     width: 90%; 
-    padding-bottom: 15px;    
+    padding-bottom: 15px;   
+    height: 77.5vh;  
+    @include tablet {
+        height: 73.1vh;
+    } 
 }
 
 .SearchContent{
@@ -61,6 +65,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    overflow: auto;
 }
 
 .ContentNotFound{

@@ -1,12 +1,25 @@
 @import '../../services/break-points.scss';
 
+.dark {
+    .Container h2{
+        color: rgb(246, 246, 250);
+    }
+
+}
 
 .Container{
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     width: 90%; 
-    padding-bottom: 15px;    
+    padding-bottom: 15px;
+    height: 80.4vh;  
+    @include tablet {
+        height: 78.8vh;
+    }
+    @include desktop {
+        height: 75.6vh;
+    }      
 }
 
 .Container h2{
@@ -16,8 +29,7 @@
     
     @include tablet {
         font-size: 40px;
-    }
-    
+    }   
 }
 
 .RenderContent{

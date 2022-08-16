@@ -15,24 +15,27 @@ $color-default: #023480;
     display: flex;
     flex-direction: column;
     padding: 10px;
+    height: 95.5vh; 
 
     @include tablet {
-        width: 100%;
+        width: 93%;
         display: flex;
         flex-direction: row;
+       
     }
-
 
     @include laptop {
         width: 80%;
         display: flex;
         flex-direction: row;
+        height: 73vh;
     }
 
     @include desktop {
         width: 60%;
         display: flex;
         flex-direction: row;
+        height: 70vh;
     }
 }
 

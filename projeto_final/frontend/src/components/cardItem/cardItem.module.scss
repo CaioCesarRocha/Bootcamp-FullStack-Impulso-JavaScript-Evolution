@@ -92,13 +92,17 @@ $color-default: #023480;
 
 .ContentButton{
     background-color: #233291;
-    height: 30px;
+    height: 35px;
     color: #fff;
     font-weight: 700;
     border-radius: 12px;
     width: 90%;
     cursor: pointer;
     margin-top: 8px;
+
+    @include tablet {
+        height: 30px;
+    } 
 
     &:hover{
         color: #233291;

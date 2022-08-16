@@ -47,6 +47,22 @@ header a i{
     }
 }
 
+.ContentOption{
+    display: flex;
+    width: 30%;
+    justify-content: space-around;
+
+    @include tablet {
+        width: 20%;
+    }
+}
+
+
+.Toggle{
+   margin-top: 8px;
+}
+
+
 
 .Option{
     display: flex;

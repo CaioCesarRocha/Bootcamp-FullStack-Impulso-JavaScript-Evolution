@@ -4,22 +4,29 @@
     margin: 0 auto;
     margin-top: 40px;
     width: 90%;
+    height: 100vh;
     //background-color: aqua;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
+    padding-bottom: 10px;  
 
     @include tablet {
         width: 80%;
+        height: 108vh;     
     }
     @include laptop {
         width: 70%;
+        height: 85vh;
     }
     @include desktop {
         width: 88%;
+        height: 74.6vh;
     }
     @include desktop-large {
         width: 74%;
+        height: 70vh;
     }
 }
 
@@ -31,6 +38,7 @@
     border-radius: 16px;
     background: linear-gradient(90deg, rgba(1,74,102,1) 0%, rgba(3,187,235,1) 100%);
     margin: 0 auto;
+    
 }
 
 .Form h2{
@@ -76,6 +84,8 @@
     align-items: center;
     justify-content: space-around;
     width: 100%;
+
+   
 
     @include laptop {
         display: flex;

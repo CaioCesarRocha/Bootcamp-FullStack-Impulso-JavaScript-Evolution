@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { useFormik } from 'formik';
 import { toast} from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 import styles from './CreateProduct.module.scss';
@@ -12,10 +13,20 @@ import ErrorForm from '../../components/form/errorForm/errorForm';
 import ButtonForm from '../../components/form/ButtonForm/buttonForm';
 import * as validationForm from '../../services/validationForm';
 import * as ProductService from '../../services/product.services';
+import useAuth from '../../data/hooks/useAuth';
 
 
 const CreateProduct = () =>{
     const [selectedFile, setSelectedFile] = useState<File>();
+    const { userLogged, user, logout} = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() =>{
+        toast.info('Necessário login com uma conta de administrador')
+        setTimeout(() =>{
+            if(!userLogged || !user?.isAdmin) navigate(-1)                
+        },5000);
+    }, [])
 
 
     const formik  = useFormik({

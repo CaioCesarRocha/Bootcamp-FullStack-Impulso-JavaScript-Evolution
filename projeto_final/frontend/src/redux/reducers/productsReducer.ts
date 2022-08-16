@@ -2,7 +2,6 @@ import {createSlice} from '@reduxjs/toolkit';
 import { IProduct } from '../../services/interfaces/product.interface';
 
 
-
 const Slice = createSlice({
     name: 'Products',
     initialState:{
@@ -20,11 +19,13 @@ const Slice = createSlice({
         },
         removeProductList:(state, action) =>{
             var newList: IProduct[] = []
+
             state.productsList.map(product =>{
                 if(product.id !== action.payload){
                     newList.push(product)
                 }
             })
+
             state.productsList = newList;
             state.numProducts =  state.productsList.length
         }       
