@@ -2,21 +2,23 @@ import { Router } from "express";
 import multer from "multer";
 
 import MulterConfig from '../middlewares/Multer';
-import UsersController from "../controller/UsersController";
+import {UsersController} from "../controller/UsersController";
+
+const usersController = new UsersController();
 
 const upload = multer(MulterConfig);
 const usersRoutes = Router();
 
 
-usersRoutes.get('/users', UsersController.index);
+usersRoutes.get('/users', usersController.index);
 
-usersRoutes.get('/users/:email', UsersController.show);
+usersRoutes.get('/users/:email', usersController.show);
 
-usersRoutes.post('/users', upload.single("avatar"), UsersController.create );
+usersRoutes.post('/users', upload.single("avatar"), usersController.create );
 
-usersRoutes.put('/users/:id', upload.single("avatar"), UsersController.update );
+usersRoutes.put('/users/:id', upload.single("avatar"), usersController.update );
 
-usersRoutes.delete('/users/:id', UsersController.delete);
+usersRoutes.delete('/users/:id', usersController.delete);
 
 
 

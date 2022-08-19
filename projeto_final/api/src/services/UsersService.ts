@@ -2,11 +2,23 @@ import { getCustomRepository} from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import {IUser, IRequestUser} from '../services/interfaces/UsersInterface';
 import { UsersRepository } from '../repository/Users.repository';
-import { idText } from 'typescript';
 
 
-class UsersService{
-    constructor(private readonly userRepository: UsersRepository) {}
+interface IUserService {
+    userRepository?: UsersRepository
+
+  }
+
+export class UsersService{
+    //constructor(private readonly userRepository: UsersRepository) {}
+
+    private userRepository: UsersRepository
+  
+    constructor ({
+        userRepository = getCustomRepository(UsersRepository),
+      }: IUserService) {
+        this.userRepository = userRepository
+      }
 
     async index(): Promise<IUser[]>  {
         var users = await this.userRepository.index();
@@ -30,7 +42,8 @@ class UsersService{
 
 
 
-    async create({newUser}: IRequestUser): Promise<boolean>{     
+    async create({newUser}: IRequestUser): Promise<boolean>{
+            
         if(newUser.nickname.length === 0 || newUser.email.length === 0 || newUser.avatar.length === 0) {
             throw new Error('Inform all fields')
         }
@@ -70,4 +83,4 @@ class UsersService{
 
 }
 
-export default new UsersService(getCustomRepository(UsersRepository))
+//export default new UsersService(getCustomRepository(UsersRepository))

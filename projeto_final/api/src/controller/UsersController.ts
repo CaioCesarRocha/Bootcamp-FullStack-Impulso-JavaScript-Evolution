@@ -1,16 +1,19 @@
 import { NextFunction, Request, Response} from 'express';
-import UsersService from '../services/UsersService';
+import {UsersService} from '../services/UsersService';
+import { UsersRepository } from '../repository/Users.repository';
+import { database } from '../database/data_test';
 
 
-
-class UsersController {
-    constructor(private readonly userService: typeof UsersService) {}
+export class UsersController {
+    //constructor(private readonly userService: typeof UsersService) {}
 
     public index = async(request: Request, response: Response, next: NextFunction) =>{
+        //teste return response.status(200).json(database) 
+        const userService = await new UsersService({userRepository: new UsersRepository})
         try{
-            const users = await this.userService.index();
+            const users = await userService.index();
 
-            return response.status(200).json({users}) 
+            return response.status(200).json(users) 
         }catch(error){
             error.message="Connection refused"
             next(error)
@@ -21,7 +24,9 @@ class UsersController {
     public show = async(request: Request, response: Response, next: NextFunction) => { 
         const email: string = request.params.email
         try{
-            const user = await this.userService.show(email);
+            const userService = await new UsersService({userRepository: new UsersRepository})
+
+            const user = await userService.show(email);
     
             return response.status(200).json({user}) 
         }catch(error){
@@ -39,10 +44,10 @@ class UsersController {
             var newUser = request.body
             newUser = {...newUser, "avatar": imgAvatar || 'noAvatar'}
             
-           //if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
-
-            const user = await this.userService.create({newUser});
-    
+           if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
+            const userService = await new UsersService({userRepository: new UsersRepository})
+            const user = await userService.create({newUser});
+            
             return response.status(201).json({user})
         }catch(error){
             error.statusCode = 400;
@@ -60,7 +65,8 @@ class UsersController {
 
             const id = request.params.id;
 
-            const user = await this.userService.update({id, newUser});
+            const userService = await new UsersService({userRepository: new UsersRepository})
+            const user = await userService.update({id, newUser});
 
             return response.status(200).json({user})
         }catch(error){
@@ -75,7 +81,8 @@ class UsersController {
         const id = request.params.id 
 
         try{
-            const user = await this.userService.delete(id);
+            const userService = await new UsersService({userRepository: new UsersRepository})
+            const user = await userService.delete(id);
             return response.status(200).json({user});
         }catch(error){
             next(error)
@@ -84,5 +91,5 @@ class UsersController {
 }
 
 
-export default new UsersController(UsersService)
+//export default new UsersController(UsersService)
 

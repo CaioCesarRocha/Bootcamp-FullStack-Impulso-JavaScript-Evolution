@@ -9,7 +9,9 @@ import { usersRoutes } from './Routes/users.routes';
 import { shoppingCartRoutes } from './Routes/shoppingcart.routes';
 
 
+
 const server = express();
+
 
 //CONFIGS DEFAULT EXPRESS
 server.use(morgan('dev'));

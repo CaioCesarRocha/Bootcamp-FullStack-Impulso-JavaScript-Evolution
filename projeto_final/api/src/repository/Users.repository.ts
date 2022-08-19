@@ -28,7 +28,7 @@ export class UsersRepository extends Repository<User>{
     }
 
 
-    async createUser({newUser}: Partial<IRequestUser> ){     
+    async createUser({newUser}: Partial<IRequestUser> ){ 
         const user = await getRepository(User)
         .createQueryBuilder()
         .insert()
