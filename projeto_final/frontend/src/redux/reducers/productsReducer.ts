@@ -5,7 +5,7 @@ import { IProduct } from '../../services/interfaces/product.interface';
 const Slice = createSlice({
     name: 'Products',
     initialState:{
-        productsList: <IProduct[]>[],
+        productsList: [] as IProduct[],
         numProducts: 0
     },
     reducers:{

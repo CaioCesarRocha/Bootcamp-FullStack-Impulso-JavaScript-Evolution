@@ -16,8 +16,14 @@ npm-debug.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 api/.env
 frontend/.env
 
 # vercel
 .vercel
+
+# postgres
+/postgres
+
+

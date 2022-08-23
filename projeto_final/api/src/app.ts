@@ -37,6 +37,6 @@ server.use(errorHandler);
 
 
 //SERVER EXECUTION PORT
-server.listen(5000, ()=>{
-    console.log('Servidor rodando na 5000!')
+server.listen(process.env.PORT_API, ()=>{
+    console.log(`Servidor rodando na ${process.env.PORT_API}!`)
 })

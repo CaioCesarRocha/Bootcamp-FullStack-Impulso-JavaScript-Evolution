@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 import styles from './ShoppingCart.module.scss';
-import * as UsersService from '../../services/user.services';
 import { IProduct } from '../../services/interfaces/product.interface'
 import { useAppSelector } from '../../redux/useAppSelector';
 import Layout from '../../components/layout/layout';
@@ -55,7 +53,7 @@ const ShoppingCart = () =>{
                     :                
                         <div className={styles.ContentNotFound}>
                             <i>{icon.sad}</i>
-                            <p>Nenhum produto foi encontrado na pesquisa.</p>
+                            <p>Nenhum produto adicionado no carrinho.</p>
                         </div>
                     }  
                 </div>

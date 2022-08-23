@@ -45,6 +45,7 @@ export class UsersController {
             newUser = {...newUser, "avatar": imgAvatar || 'noAvatar'}
             
            if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
+           
             const userService = await new UsersService({userRepository: new UsersRepository})
             const user = await userService.create({newUser});
             

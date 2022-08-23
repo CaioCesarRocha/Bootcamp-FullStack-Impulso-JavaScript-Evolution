@@ -21,11 +21,12 @@ const CreateProduct = () =>{
     const { userLogged, user, logout} = useAuth();
     const navigate = useNavigate();
 
+    //SOMENTE USARIOS ADMIN PODEREM CADASTRAR
     useEffect(() =>{
-        toast.info('Necessário login com uma conta de administrador')
+        /*toast.info('Necessário login com uma conta de administrador')
         setTimeout(() =>{
             if(!userLogged || !user?.isAdmin) navigate(-1)                
-        },5000);
+        },5000);*/
     }, [])
 
 

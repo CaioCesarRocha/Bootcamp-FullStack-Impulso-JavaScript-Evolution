@@ -5,4 +5,5 @@ WORKDIR /home/src/api
 COPY . .
 
 
-CMD ["sh", "-c","npm install && npm run dev"]
+CMD ["sh", "-c","npm install && npm run typeorm migration:run && npm run dev"]
+

@@ -1,6 +1,7 @@
 export default {
     type: 'postgres',
-    host:  process.env.PG_HOST,
+    url: process.env.DATABASE_URL,
+    host: process.env.DB_HOST,
     port: process.env.PG_PORT,
     username:  process.env.PG_USER,
     password:  process.env.PG_PASSWORD,
