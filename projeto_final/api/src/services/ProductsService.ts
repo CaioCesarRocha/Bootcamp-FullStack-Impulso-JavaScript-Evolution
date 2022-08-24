@@ -1,5 +1,6 @@
 import { getCustomRepository} from 'typeorm';
 import { ProductsRepository} from '../repository/Products.repository'
+import { ShoppingCartRepository} from '../repository/ShoppingCart.repository';
 import {IProduct, IRequestProduct} from '../services/interfaces/ProductsInterface';
 
 
@@ -66,9 +67,16 @@ class ProductsService{
     async delete(id: number){
         if(!id) throw new Error('ID not informed')
 
-        const product = await this.productRepository.deleteProduct(id)
-
-        return product;
+        try{
+            const shoppingCartRepository = new ShoppingCartRepository();
+            await shoppingCartRepository.deleteProduct(id)
+            
+            const product = await this.productRepository.deleteProduct(id);
+            return product;
+        }catch{
+            const product = await this.productRepository.deleteProduct(id)
+            return product;
+        }      
     }
 }
 

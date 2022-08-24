@@ -4,8 +4,7 @@ import { Product } from '../entities/Product';
 import { IProduct } from '../services/interfaces/ProductsInterface';
 import { ProductsRepository } from './Products.repository';
 import { IItem, IRequestItem } from '../services/interfaces/ShoppingCartInterface';
-import { productsRoutes } from '../Routes/products.routes';
-import { getModeForResolutionAtIndex } from 'typescript';
+
 
 
 
@@ -53,6 +52,20 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         .from(ShoppingCart)
         .where('user_id = :user_id', {user_id: user_id})
         .andWhere('product_id = :product_id', {product_id: product_id})
+        .execute()
+
+        if(!product) throw new Error('Cant possible maked a connection')
+
+        return true;
+    }
+
+    //When an admin exclude a product, if it exist here shoud be exclude(ShoppingCartt) of
+    async deleteProduct(product_id: number){
+        const product = await getRepository(ShoppingCart)
+        .createQueryBuilder()
+        .delete()
+        .from(ShoppingCart)
+        .where('product_id = :product_id', {product_id: product_id})
         .execute()
 
         if(!product) throw new Error('Cant possible maked a connection')
