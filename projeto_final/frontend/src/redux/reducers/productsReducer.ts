@@ -20,7 +20,7 @@ const Slice = createSlice({
         removeProductList:(state, action) =>{
             var newList: IProduct[] = []
 
-            state.productsList.map(product =>{
+            state.productsList.forEach(product =>{
                 if(product.id !== action.payload){
                     newList.push(product)
                 }

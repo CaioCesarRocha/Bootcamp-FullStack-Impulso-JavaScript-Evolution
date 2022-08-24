@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react';
-import { toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 
 import styles from './ShoppingCart.module.scss';
 import { IProduct } from '../../services/interfaces/product.interface'

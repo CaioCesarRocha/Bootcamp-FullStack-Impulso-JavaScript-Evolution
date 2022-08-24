@@ -71,11 +71,11 @@ const CardItem = (props: propsProduct) =>{
             <div className={styles.ContentInfo}>
                 {user?.isAdmin ? 
                     <div className={styles.ContainerOptions}>
-                        <a onClick={() => navigate(`/UpdateProduct/${props.id}`)}>{icon.edit}</a>
+                        <a href="#/" onClick={() => navigate(`/UpdateProduct/${props.id}`)}>{icon.edit}</a>
                         {!shouldDelete ? 
-                            <a onClick={() => handleDeleteProduct(props.id)}>{icon.exclude}</a>   
+                            <a href="#/" onClick={() => handleDeleteProduct(props.id)}>{icon.exclude}</a>   
                         :
-                            <a onClick={() => handleDeleteProduct(props.id)} style={{color: 'orange'}}>
+                            <a href="#/" onClick={() => handleDeleteProduct(props.id)} style={{color: 'orange'}}>
                                 {icon.attention}
                             </a>   
                         }                              
@@ -83,7 +83,7 @@ const CardItem = (props: propsProduct) =>{
                 :   null             
                 }
 
-                <a onClick={() => navigate(`/showProduct/${props.id}`)}>{props.name}</a>
+                <a href="#/"onClick={() => navigate(`/showProduct/${props.id}`)}>{props.name}</a>
                 <div className={styles.RowInfo}>
                     <div className={styles.Info}> Preço: </div> 
                     <div className={styles.InfoValue}> ${props.price} </div>

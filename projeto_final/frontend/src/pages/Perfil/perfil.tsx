@@ -13,14 +13,14 @@ const Perfil = () =>{
 
     useEffect(() =>{
         if(userLogged === false) navigate('/authentication')
-    },[userLogged])
+    },[userLogged, navigate])
 
     return(
         <Layout>
             <div className={styles.ContentButton}>
                 <button className={styles.ButtonLogout} onClick={logout}>
                     <i>{icon.logout}</i>
-                    <a>Sair </a>
+                    <a href="#/"> Sair </a>
                 </button>
             </div>
         </Layout>  

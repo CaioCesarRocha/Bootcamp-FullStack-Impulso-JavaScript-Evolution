@@ -18,7 +18,7 @@ import useAuth from '../../data/hooks/useAuth';
 
 const CreateProduct = () =>{
     const [selectedFile, setSelectedFile] = useState<File>();
-    const { userLogged, user, logout} = useAuth();
+    const { userLogged, user} = useAuth();
     const navigate = useNavigate();
 
     //SOMENTE USARIOS ADMIN PODEREM CADASTRAR

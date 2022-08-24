@@ -10,7 +10,7 @@ import useAuth from "../../data/hooks/useAuth"
 
 
 const Authentication = () =>{
-    const { user,userLogged, loginGoogle, loginNormal, registerUser, msgError,loading} = useAuth();
+    const { userLogged, loginGoogle, loginNormal, registerUser, msgError,loading} = useAuth();
     const navigate = useNavigate();
     const [ screen, setScreen] = useState<'Login' | 'Register'>('Login')
     const [ email, setEmail] = useState<string>('')
@@ -21,9 +21,9 @@ const Authentication = () =>{
 
 
     useEffect(() =>{
-        console.log('user', user)
+        //console.log('user', user)
         if(userLogged === true) navigate('/') 
-    },[userLogged])
+    },[userLogged, navigate])
 
     useEffect(() =>{
         if(msgError !== ''){
@@ -65,7 +65,7 @@ const Authentication = () =>{
                 {renderError ? 
                     <div className={styles.ContentErrors}>
                         <i>{icon.alert}</i>
-                        <a>{newMsgError}</a>
+                        <a href="#/">{newMsgError}</a>
                     </div>                 
                 :   null
                 }
@@ -91,7 +91,7 @@ const Authentication = () =>{
 
                     {screen === 'Login' ? 
                         <p  className={styles.ForgetPassword}>                 
-                            <a onClick={() => handleForgotPassword()}> Esqueceu a senha? </a>
+                            <a href="#/" onClick={() => handleForgotPassword()}> Esqueceu a senha? </a>
                         </p>
                     : 
                         <InputForm
@@ -112,7 +112,7 @@ const Authentication = () =>{
                     {loading  ? 
                         <div className={styles.ContentLoading}>
                             <Puff height = "40" width = "40"color = 'white'/>
-                            <a> Autenticando Usuário...</a>
+                            <a href="#/"> Autenticando Usuário...</a>
                         </div>
                     :   null
                     }            
@@ -125,7 +125,7 @@ const Authentication = () =>{
                             </button>
                             <p className={styles.InfoLogin}>
                                 Novo por aqui?
-                                <a  onClick={() => {setScreen('Register'); setRenderError(false)}}>
+                                <a href="#/" onClick={() => {setScreen('Register'); setRenderError(false)}}>
                                     Crie uma conta grautitamente.
                                 </a>
                             </p>
@@ -133,7 +133,7 @@ const Authentication = () =>{
                     :
                         <p className={styles.InfoLogin}>
                             Já tem uma conta?
-                            <a onClick={() => {setScreen('Login'); setRenderError(false)}}> 
+                            <a href="#/" onClick={() => {setScreen('Login'); setRenderError(false)}}> 
                                 Faça login aqui. 
                             </a>
                         </p>              

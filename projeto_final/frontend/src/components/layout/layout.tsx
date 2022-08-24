@@ -31,7 +31,7 @@ const Layout = (props: PropsLayout) =>{
                     <NavBar/>
                     
                     <div className={styles.ContentPerfil}>
-                        <a onClick={() => navigate('/Perfil')}>
+                        <a href="#/" onClick={() => navigate('/Perfil')}>
                             {user?.name || 'Fazer login'}
                         </a>
                         {user?.imgUrl === `http://${process.env.REACT_APP_LINUX_IP}:5000/uploads/noAvatar` ?

@@ -16,13 +16,14 @@ const ShowProduct = () =>{
     const params = useParams();
 
     useEffect(() =>{
+        console.log('PASSOU USEFFECT DO SHOW PRODUDCT')
         const id = params.id || '0'
         async function getProduct(){
             const response: IProduct = await ProductService.getOneProduct(id);
             setProduct(response)           
         }
         getProduct()
-    }, [])
+    }, [params.id])
 
 
     return(

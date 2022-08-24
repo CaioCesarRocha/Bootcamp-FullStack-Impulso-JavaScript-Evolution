@@ -25,13 +25,14 @@ const UpdateProduct = () =>{
 
 
     useEffect(() =>{
+        console.log('PASSOU USEFFECT DO UPDATE PRODUDCT')
         const id = params.id || '0';
         async function getValuesProduct(){
             const values = await validationForm.getInitialValues(id) ;
             setValuesProduct(values)      
         }
         getValuesProduct()
-    }, [])
+    }, [params.id])
 
 
     const handleResult = (response: number, name: string) =>{

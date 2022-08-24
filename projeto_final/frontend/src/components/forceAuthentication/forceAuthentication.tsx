@@ -20,7 +20,7 @@ export default function ForceAuthentication(props: any){
         // Se nao tiver carregando e sem user setado então força autenticação
         //else{ console.log('navegou auentication')}
         else navigate('/authentication')  
-    }, [loading])
+    }, [loading, user, navigate])
 
 
     return(

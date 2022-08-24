@@ -29,7 +29,7 @@ const NavBar = () =>{
     useEffect(() =>{
         if(themeRedux === 'dark') setCheckedDarkMode(true)
         if(themeRedux === 'light') setCheckedDarkMode(false)
-    }, [])
+    }, [themeRedux])
 
     useEffect(() =>{
         async function getShoppingCart(){
@@ -42,7 +42,7 @@ const NavBar = () =>{
             }
         }
         getShoppingCart()
-    },[])
+    },[dispatch, userLogged,user ])
 
     function handleTheme(){
         if(checkedDarkMode) {
@@ -60,23 +60,23 @@ const NavBar = () =>{
     return(
         <header className={styles.header}>
             <>
-                <a onClick={() => navigate('/')}>
+                <a href="#/" onClick={() => navigate('/')}>
                     <img
                         src="/images/logo_DIO.png"
                         alt="Logo Empresa"
                     />
                 </a>
                 
-                <a onClick={() => navigate('/')}> DIO E-Commerce </a>
+                <a href="#/" onClick={() => navigate('/')}> DIO E-Commerce </a>
             </>
 
             <div className={styles.ContentOption}>
                 { user?.isAdmin ? 
-                    <a onClick={() => navigate('/CreateProduct')} className={styles.Option}>
+                    <a href="#/"  onClick={() => navigate('/CreateProduct')} className={styles.Option}>
                         <i>{icon.add}</i>                  
                     </a>
                 :   
-                    <a onClick={() => navigate('/ShoppingCart')} className={styles.Option}>
+                    <a href="#/" onClick={() => navigate('/ShoppingCart')} className={styles.Option}>
                         <div className={styles.NumShopCart}> {numProducts}</div>
                         <i>{icon.shopCart}</i>
                     </a>

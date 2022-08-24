@@ -1,6 +1,3 @@
-import { useDispatch } from "react-redux";
-
-import { setProductsList } from "../redux/reducers/productsReducer";
 import { User as FirebaseUser } from 'firebase/auth';
 import {IUser} from './interfaces/user.interface';
 import {IProduct} from './interfaces/product.interface';
