@@ -1,5 +1,5 @@
 import { getCustomRepository} from 'typeorm';
-import {IItem, IRequestItem} from '../services/interfaces/ShoppingCartInterface';
+import { IRequestItem } from '../services/interfaces/ShoppingCartInterface';
 import { IProduct } from './interfaces/ProductsInterface';
 import { ShoppingCartRepository } from '../repository/ShoppingCart.repository';
 

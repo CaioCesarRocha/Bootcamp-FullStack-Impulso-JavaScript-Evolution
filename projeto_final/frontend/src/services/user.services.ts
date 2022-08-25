@@ -1,4 +1,5 @@
 import { User as FirebaseUser } from 'firebase/auth';
+import UserLogin from './interfaces/userFirebase.interface';
 import {IUser} from './interfaces/user.interface';
 import {IProduct} from './interfaces/product.interface';
 import * as UserRepository from '../repository/user.repository';
@@ -21,6 +22,22 @@ export async function saveDataUser(user: FirebaseUser): Promise<number>{
     const response = await UserRepository.saveDataUser(dataUser)
     return response;
 }
+
+
+export async function updateDataUser(id: string, user: UserLogin, file?: File): Promise<number>{
+    const dataUser = new FormData(); 
+
+    dataUser.append('nickname', user?.name || 'Insira um Nickname');
+    dataUser.append('email', user?.email || '');
+    dataUser.append('isAdmin', user?.isAdmin as any);
+
+    if(file) dataUser.append('avatar', file);
+    else dataUser.append('avatar', 'add Avatar')
+
+    const response = await UserRepository.updateDataUser(id, dataUser)
+    return response;
+}
+
 
 
 export async function addProduct(user_id: string, product_id: number,): Promise<number>{

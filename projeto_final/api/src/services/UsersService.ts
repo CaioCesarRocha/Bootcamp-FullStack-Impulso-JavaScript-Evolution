@@ -67,7 +67,7 @@ export class UsersService{
             throw new Error('Inform all fields')
         }
 
-        const user = await this.userRepository.updateProduct({id, newUser})
+        const user = await this.userRepository.updateUser({id, newUser})
 
         return user;
     }

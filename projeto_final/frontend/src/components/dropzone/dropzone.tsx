@@ -15,8 +15,12 @@ const Dropzone: React.FC<propsDropzone>= ({onFileUploaded, message, valueInitial
     const [selectedFileUrl, setSelectedFileUrl] = useState('');
 
     useEffect(() =>{
-        if(valueInitial) setSelectedFileUrl(valueInitial)
+        if(valueInitial === `http://${process.env.REACT_APP_LINUX_IP}:5000/uploads/noAvatar`){
+            setSelectedFileUrl('https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/User.svg/2048px-User.svg.png')
+        }
+        else if(valueInitial) setSelectedFileUrl(valueInitial)
     }, [valueInitial])
+
 
     const onDrop = useCallback( (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];

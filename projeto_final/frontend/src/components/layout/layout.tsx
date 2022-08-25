@@ -11,6 +11,8 @@ import useAuth from '../../data/hooks/useAuth'
 
 interface PropsLayout{
     children?: any
+    username?: string,
+    avatar?:string
 }
 
 const Layout = (props: PropsLayout) =>{
@@ -18,12 +20,14 @@ const Layout = (props: PropsLayout) =>{
     const {user} = useAuth();
     const navigate = useNavigate();
     const themeRedux = useAppSelector(state => state.theme.theme);
+   
 
     useEffect(() =>{
         if(themeRedux === 'dark') setTheme(styles.dark)
         if(themeRedux === 'light') setTheme(styles.light)
     },[themeRedux])
 
+ 
     return(   
         <ForceAuthentication> 
             <div className={theme}>

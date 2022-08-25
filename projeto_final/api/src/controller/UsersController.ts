@@ -62,7 +62,8 @@ export class UsersController {
         try{
             const imgAvatar = request.file?.filename;
             var newUser = request.body;
-            newUser = {...newUser, "avatar": imgAvatar};   
+            newUser = {...newUser, "avatar": imgAvatar || undefined};        
+            if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
 
             const id = request.params.id;
 

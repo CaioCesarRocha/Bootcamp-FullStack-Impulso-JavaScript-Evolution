@@ -19,6 +19,7 @@ interface AuthContextProps{
     loginNormal?: (email: string, password: string) => Promise<void>
     logout?: () => Promise<void>,
     registerUser?: (email: string, password: string, confirmPassword: string) => Partial<void>,
+    updateUser?: (user: UserLogin) => Promise<void>
 }
 
 const AuthContext= createContext<AuthContextProps>({    
@@ -151,6 +152,12 @@ export const AuthProvider = (props:any) =>{
         }        
     }
 
+    async function updateUser(user: UserLogin ){
+        const res = await UsersService.getDataUser(user.email)  
+        user.imgUrl = res.avatar
+        setUser(user)
+    }
+
     useEffect(() =>{
         //esse metodo vai checar se ja existe um usuário mudou, em relaçaõ ao q estava logado antes
         //se tiver mudado ele chama a config session para passar os dados dnv(do user q logou a 1 vez)
@@ -173,6 +180,7 @@ export const AuthProvider = (props:any) =>{
             loginGoogle,
             logout,
             registerUser,
+            updateUser
         }}>
             {props.children}
         </AuthContext.Provider  >

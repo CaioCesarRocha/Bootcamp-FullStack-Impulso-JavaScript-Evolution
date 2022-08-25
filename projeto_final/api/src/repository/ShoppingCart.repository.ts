@@ -1,10 +1,8 @@
 import { getRepository, EntityRepository, Repository } from 'typeorm';
 import { ShoppingCart } from '../entities/ShoppingCart';
-import { Product } from '../entities/Product';
 import { IProduct } from '../services/interfaces/ProductsInterface';
 import { ProductsRepository } from './Products.repository';
-import { IItem, IRequestItem } from '../services/interfaces/ShoppingCartInterface';
-
+import { IRequestItem } from '../services/interfaces/ShoppingCartInterface';
 
 
 
@@ -28,7 +26,6 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
     }
 
 
-
     async createUserProduct({newItem}: Partial<IRequestItem> ){
         const product = await getRepository(ShoppingCart)
         .createQueryBuilder()
@@ -45,6 +42,7 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         return product; 
     }
 
+
     async deleteUserProduct(user_id: string, product_id: number){
         const product = await getRepository(ShoppingCart)
         .createQueryBuilder()
@@ -58,6 +56,7 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
 
         return true;
     }
+    
 
     //When an admin exclude a product, if it exist here shoud be exclude(ShoppingCartt) of
     async deleteProduct(product_id: number){

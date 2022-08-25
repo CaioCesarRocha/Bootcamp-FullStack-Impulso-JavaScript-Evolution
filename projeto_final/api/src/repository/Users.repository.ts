@@ -48,26 +48,28 @@ export class UsersRepository extends Repository<User>{
     }
 
 
-    async updateProduct({id, newUser}: IRequestUser ){
-        if (newUser.avatar === undefined){
+    async updateUser({id, newUser}: IRequestUser ){
+        if(newUser.avatar === undefined){
             const product = await getRepository(User)
             .createQueryBuilder()
             .update(User)
             .set({nickname: newUser.nickname, email: newUser.email, isAdmin: newUser.isAdmin})
             .where("id = :id", { id: id })
             .execute()
+    
+            return product;
 
-            return product; 
-        }else{
+        } else{
             const product = await getRepository(User)
             .createQueryBuilder()
             .update(User)
             .set({nickname: newUser.nickname, email: newUser.email, isAdmin: newUser.isAdmin, avatar: newUser.avatar})
             .where("id = :id", { id: id })
             .execute()
-
+    
             return product; 
-        }      
+        }
+                  
     }
     
 

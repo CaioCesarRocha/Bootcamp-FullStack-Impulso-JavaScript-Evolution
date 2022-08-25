@@ -1,13 +1,27 @@
 @import '../../services/break-points.scss';
 
+.Container{
+    height: 95.5vh; 
 
+    @include laptop {
+        height: 78vh;
+    }
+
+    @include desktop {
+        height: 78.3vh;
+    }
+
+    @include desktop-large {
+        height: 75.6vh;
+    }
+}
 
 .ContentButton{
     display: flex;
     justify-content: right;
     align-items: center;
     margin-top: 15px;
-    margin-right: 15px ;
+    margin-right:35px; 
 }
 
 .ButtonLogout{
@@ -30,6 +44,128 @@
 }
 
 .ButtonLogout a{
+    color: white;
     text-decoration: none;
     margin-left: 5px;
 }
+
+
+.ContainerContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    background: linear-gradient(90deg, rgb(7, 118, 161) 0%, rgb(92, 185, 221) 100%);
+    border-radius: 16px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+    height: 88vh;
+    width: 85%;
+
+    h2{
+        color: rgb(24, 23, 131);
+        font-weight: 700;
+    }
+
+    @include tablet {
+        text-align: center;
+        height: 85vh;
+        width: 80%;
+    }
+
+    @include laptop {
+        flex-direction: row; 
+        align-items: start;
+        height: 60vh;
+        width: 70%;
+    }
+
+    @include desktop {
+        flex-direction: row; 
+        align-items: start; 
+        width: 55%;
+        height: 60vh;
+    }
+}
+
+
+.DisplayColumn{
+    display: flex;
+    flex-direction: column; 
+    width: 90%;
+}
+
+.ContainerUserInfo{
+    display: flex;
+    flex-direction: column;  
+    //background-color: rgb(86, 207, 106);
+    width: 90%;
+
+    @include tablet {
+        align-items: center;
+        flex-direction: row;
+        margin-left: 15px;
+        width: 85%;
+    }
+
+    h4{ 
+        font-weight: 600;
+        color: rgb(223, 226, 59);
+    }
+
+    input{
+        width: 100%;
+        height: 35px;
+        margin-left: 5px;
+        padding-left: 10px;
+        background-color: rgb(24, 23, 131);
+        color: rgb(223, 226, 59);
+        border-radius: 12px;
+        box-shadow: 3px 3px 3px black;
+    }
+
+}
+
+.ButtonSend{
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 5px;
+    width: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;      
+    border-radius: 12px;
+    background-color: rgb(24, 23, 131);
+    color: rgb(223, 226, 59);
+    align-self: center;
+    margin-top: 15px;
+
+    &:hover{
+        background-color: rgb(68, 58, 201);
+    }
+
+    @include tablet {
+        margin-top: 30px;
+    }
+
+    @include laptop {
+       
+    }
+
+    @include desktop {
+       
+    }
+
+    @include desktop-large { 
+        margin-top: 75px;     
+    } 
+
+    i{  
+        padding-left: 10px;
+        font-size: 18px;
+        padding-top: 5px;
+    }
+}
+   

@@ -24,6 +24,17 @@ export async function saveDataUser(dataUser: FormData): Promise<number>{
 }
 
 
+export async function updateDataUser(id: string, dataUser: FormData): Promise<number>{
+    try{
+        const response = await api.put(`/users/${id}`, dataUser); 
+        return response.status;
+    }catch(err){
+        return 400
+    } 
+}
+
+
+
 export async function addProduct(user_id: string, product_id: number): Promise<number>{
     try{
         const newItem = {user_id, product_id}
