@@ -5,7 +5,9 @@ export default {
     port: process.env.PG_PORT,
     username:  process.env.PG_USER,
     password:  process.env.PG_PASSWORD,
-    database:  process.env.PG_DB,
+    database: process.env.PORT === '5001'
+        ? process.env.PG_DB_TEST
+        : process.env.PG_DB,
     entities: ['./src/entities/*.{js,ts}'],
     migrations: ['./src/database/migrations/*.{js,ts}'],
     cli: {

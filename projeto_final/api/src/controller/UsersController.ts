@@ -38,6 +38,7 @@ export class UsersController {
 
 
     public create = async(request: Request, response: Response, next: NextFunction) =>{
+        console.log('PSEEI CREATE')
         try{
             const imgAvatar = request.file?.filename
 
@@ -51,8 +52,10 @@ export class UsersController {
             
             return response.status(201).json({user})
         }catch(error){
+            console.log('PSEEI CREATE ERROR')
+            //return response.status(400).json('Inform all fields')           
             error.statusCode = 400;
-            error.message = 'Data miss a field or Duplicate Field or connection refused'
+            error.message = 'Data miss a field or Duplicate Field or connection refused' 
             next(error)
         }  
     }
