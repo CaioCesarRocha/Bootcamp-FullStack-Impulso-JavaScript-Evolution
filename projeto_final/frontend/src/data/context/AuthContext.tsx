@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, signOut, User as FirebaseUser, 
+import { GoogleAuthProvider, signInWithPopup, signOut, User as FirebaseUser, sendPasswordResetEmail,
     createUserWithEmailAndPassword, signInWithEmailAndPassword, onIdTokenChanged,   
 } from 'firebase/auth';
 import { createContext, useEffect, useState, } from "react";
@@ -20,6 +20,7 @@ interface AuthContextProps{
     logout?: () => Promise<void>,
     registerUser?: (email: string, password: string, confirmPassword: string) => Partial<void>,
     updateUser?: (user: UserLogin) => Promise<void>
+    forgotPassword?: (email: string) => Promise<void>,
 }
 
 const AuthContext= createContext<AuthContextProps>({    
@@ -158,6 +159,23 @@ export const AuthProvider = (props:any) =>{
         setUser(user)
     }
 
+
+    async function forgotPassword(email: string){
+        //redefinir Senha
+        await sendPasswordResetEmail(auth, email)
+        .then(() => {
+            alert('Email para redefinição de senha enviado. Verifique sua caixa de e-mail e Spam.')
+        })
+        .catch((error) => {
+            alert('Não existe nenhuma conta criada neste e-mail. Insira um e-mail válido. ')
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+        });
+    }
+
+
     useEffect(() =>{
         //esse metodo vai checar se ja existe um usuário mudou, em relaçaõ ao q estava logado antes
         //se tiver mudado ele chama a config session para passar os dados dnv(do user q logou a 1 vez)
@@ -180,7 +198,8 @@ export const AuthProvider = (props:any) =>{
             loginGoogle,
             logout,
             registerUser,
-            updateUser
+            updateUser,
+            forgotPassword,
         }}>
             {props.children}
         </AuthContext.Provider  >

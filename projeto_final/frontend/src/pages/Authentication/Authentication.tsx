@@ -10,7 +10,7 @@ import useAuth from "../../data/hooks/useAuth"
 
 
 const Authentication = () =>{
-    const { userLogged, loginGoogle, loginNormal, registerUser, msgError,loading} = useAuth();
+    const { userLogged, loginGoogle, loginNormal, registerUser, msgError,loading, forgotPassword} = useAuth();
     const navigate = useNavigate();
     const [ screen, setScreen] = useState<'Login' | 'Register'>('Login')
     const [ email, setEmail] = useState<string>('')
@@ -45,8 +45,21 @@ const Authentication = () =>{
     }
    
    
-    function handleForgotPassword() {
-
+    async function handleForgotPassword() {
+        if(!email){
+            setNewMsgError('Digite um e-mail válido para enviarmos a redefinição de senha.')
+            setRenderError(true)
+        }
+        else{
+            try { 
+                await forgotPassword?.(email)
+            }
+            catch(err){
+                if (err instanceof Error) setNewMsgError(err.message);
+                else setNewMsgError('Unknow Error');   
+                setRenderError(true)
+            }   
+        }
     }
 
     return(     
