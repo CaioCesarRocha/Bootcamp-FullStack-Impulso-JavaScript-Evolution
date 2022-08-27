@@ -50,7 +50,7 @@ class ProductsController {
             const imgProduct = request.file?.filename
 
             var newP = request.body
-            newP = {...newP, "image": imgProduct || 'noHasOne'}
+            newP = {...newP, "image": imgProduct || 'noHas'}
 
             const product = await this.productService.create({newP});
     
