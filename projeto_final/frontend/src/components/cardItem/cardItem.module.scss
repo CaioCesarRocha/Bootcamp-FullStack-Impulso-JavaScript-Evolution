@@ -52,20 +52,17 @@ $color-default: #023480;
     display: flex;
     flex-direction: row; 
     margin-top: 10px;
-    //background-color: rgb(224, 54, 54);
 }
 
 .Info{
     font-weight: 700;
     color: $color-default;
-    //background-color: #87d422;
 }
 
 .InfoValue{
     margin-left: 5px;
     font-weight: 400;
     color: #233291;
-    //background-color: #2e4e04;
 }
 
 .ButtonAddCart{
@@ -73,17 +70,17 @@ $color-default: #023480;
     margin-bottom: 10px;
     padding: 2px;
     width: 80%;
-    background-color: #023480;
+    background-color: $color-default;
     color: #fff;
     font-weight: 700;
-    border-color: #023480;
+    border-color: $color-default;
     border-radius: 8px;
     cursor: pointer;
 
     &:hover{
-        border-color: #023480;
+        border-color: $color-default;
         background-color:white;
-        color: #023480;
+        color: $color-default;
     }
 }
 

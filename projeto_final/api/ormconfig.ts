@@ -1,7 +1,7 @@
 export default {
     type: 'postgres',
     url: process.env.DATABASE_URL,
-    host: process.env.DB_HOST,
+    host: process.env.PG_HOST, //alterar para DB_HOST quando for rodar com docker
     port: process.env.PG_PORT,
     username:  process.env.PG_USER,
     password:  process.env.PG_PASSWORD,

@@ -56,6 +56,7 @@
     align-items: center;
     
     background: linear-gradient(90deg, rgb(7, 118, 161) 0%, rgb(92, 185, 221) 100%);
+    box-shadow: 6px 6px 6px rgb(0, 6, 61);
     border-radius: 16px;
     margin: 0 auto;
     margin-top: 10px;
@@ -148,14 +149,6 @@
 
     @include tablet {
         margin-top: 30px;
-    }
-
-    @include laptop {
-       
-    }
-
-    @include desktop {
-       
     }
 
     @include desktop-large { 

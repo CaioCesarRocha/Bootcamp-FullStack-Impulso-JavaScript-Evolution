@@ -1,5 +1,8 @@
 @import '../../services/break-points.scss';
 
+$color-light-blue: #71cbf5;
+$color-dark-blue: #1759bd;
+
 .Content{
     display: flex;
     flex-direction: column;
@@ -27,14 +30,19 @@
 
 .SearchContent input{
     //vertical-align: middle;
-    width: 90%;
+    width: 95%;
     height: 2.1rem;
-    background-color: #71cbf5;
+    background-color: $color-light-blue;
     color: rgb(17, 17, 17);
     font-weight: bold;
     border-style: none;
     padding: 7px;
-    border-radius: 50px 0px 0px 50px; 
+    padding-left: 30px;
+    border-radius: 50px 0px 0px 50px;
+
+    @include tablet {
+        width: 80%;
+    }
 }
 
 .SearchContent button{
@@ -42,14 +50,14 @@
     vertical-align: middle;
     border-style: none;
     width: 3rem;
-    background-color: #1759bd;
+    background-color: $color-dark-blue;
     color: white;
     cursor: pointer;
     border-radius: 0px 50px 50px 0px;
 
     &:hover{
-        background-color: #71cbf5; 
-        color: #1759bd;
+        background-color: $color-light-blue; 
+        color: $color-dark-blue;
         border-style: none;
     }
 }
@@ -59,7 +67,7 @@
 }
 
 .RenderContent{
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 10px;
     //background-color: #59bb66;
     justify-content: space-around;
