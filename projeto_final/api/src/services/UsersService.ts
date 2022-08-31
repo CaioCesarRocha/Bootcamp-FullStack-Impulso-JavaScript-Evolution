@@ -1,4 +1,5 @@
-import { getCustomRepository} from 'typeorm';
+import { getCustomRepository, EntityRepository} from 'typeorm';
+import { User } from '../entities/User';
 import { v4 as uuidv4 } from 'uuid';
 import {IUser, IRequestUser} from '../services/interfaces/UsersInterface';
 import { UsersRepository } from '../repository/Users.repository';
@@ -6,9 +7,9 @@ import { UsersRepository } from '../repository/Users.repository';
 
 interface IUserService {
     userRepository?: UsersRepository
+}
 
-  }
-
+@EntityRepository(User)
 export class UsersService{
     //constructor(private readonly userRepository: UsersRepository) {}
 
@@ -18,7 +19,7 @@ export class UsersService{
         userRepository = getCustomRepository(UsersRepository),
       }: IUserService) {
         this.userRepository = userRepository
-      }
+    }
 
     async index(): Promise<IUser[]>  {
         var users = await this.userRepository.index();

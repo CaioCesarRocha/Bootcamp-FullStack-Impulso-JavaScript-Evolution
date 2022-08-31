@@ -1,17 +1,30 @@
 import { NextFunction, Request, Response} from 'express';
+import { getCustomRepository} from 'typeorm';
 import {UsersService} from '../services/UsersService';
 import { UsersRepository } from '../repository/Users.repository';
 import { database } from '../database/data_test';
+
+interface IUserController {
+    userService?: UsersService
+}
 
 
 export class UsersController {
     //constructor(private readonly userService: typeof UsersService) {}
 
+    private userService: UsersService
+  
+    constructor ({
+        userService = getCustomRepository(UsersService),
+      }: IUserController) {
+        this.userService = userService
+    }
+  
     public index = async(request: Request, response: Response, next: NextFunction) =>{
         //teste return response.status(200).json(database) 
-        const userService = await new UsersService({userRepository: new UsersRepository})
+       //const userService = await new UsersService({userRepository: new UsersRepository})
         try{
-            const users = await userService.index();
+            const users = await this.userService.index();
 
             return response.status(200).json(users) 
         }catch(error){
@@ -23,10 +36,11 @@ export class UsersController {
 
     public show = async(request: Request, response: Response, next: NextFunction) => { 
         const email: string = request.params.email
+      
         try{
-            const userService = await new UsersService({userRepository: new UsersRepository})
+            //const userService = await new UsersService({userRepository: new UsersRepository})
 
-            const user = await userService.show(email);
+            const user = await this.userService.show(email);
     
             return response.status(200).json({user}) 
         }catch(error){
@@ -38,7 +52,6 @@ export class UsersController {
 
 
     public create = async(request: Request, response: Response, next: NextFunction) =>{
-        console.log('PSEEI CREATE')
         try{
             const imgAvatar = request.file?.filename
 
@@ -47,13 +60,11 @@ export class UsersController {
             
            if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
            
-            const userService = await new UsersService({userRepository: new UsersRepository})
-            const user = await userService.create({newUser});
+            //const userService = await new UsersService({userRepository: new UsersRepository})
+            const user = await this.userService.create({newUser});
             
             return response.status(201).json({user})
-        }catch(error){
-            console.log('PSEEI CREATE ERROR')
-            //return response.status(400).json('Inform all fields')           
+        }catch(error){       
             error.statusCode = 400;
             error.message = 'Data miss a field or Duplicate Field or connection refused' 
             next(error)
@@ -70,8 +81,8 @@ export class UsersController {
 
             const id = request.params.id;
 
-            const userService = await new UsersService({userRepository: new UsersRepository})
-            const user = await userService.update({id, newUser});
+            //const userService = await new UsersService({userRepository: new UsersRepository})
+            const user = await this.userService.update({id, newUser});
 
             return response.status(200).json({user})
         }catch(error){
@@ -86,8 +97,8 @@ export class UsersController {
         const id = request.params.id 
 
         try{
-            const userService = await new UsersService({userRepository: new UsersRepository})
-            const user = await userService.delete(id);
+            //const userService = await new UsersService({userRepository: new UsersRepository})
+            const user = await this.userService.delete(id);
             return response.status(200).json({user});
         }catch(error){
             next(error)

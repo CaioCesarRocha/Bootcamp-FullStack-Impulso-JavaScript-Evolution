@@ -3,8 +3,13 @@ import multer from "multer";
 
 import MulterConfig from '../middlewares/Multer';
 import {UsersController} from "../controller/UsersController";
+import { UsersService } from "../services/UsersService";
+import { UsersRepository } from "../repository/Users.repository";
 
-const usersController = new UsersController();
+
+const userService = new UsersService({userRepository: new UsersRepository})
+const usersController = new UsersController({userService: userService})
+
 
 const upload = multer(MulterConfig);
 const usersRoutes = Router();
