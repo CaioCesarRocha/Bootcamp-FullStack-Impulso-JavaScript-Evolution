@@ -21,67 +21,54 @@ export class UsersService{
         this.userRepository = userRepository
     }
 
+    validationNotNull({newUser}: IRequestUser){
+        return newUser.nickname.length === 0 || newUser.email.length === 0 || newUser.avatar.length === 0;
+    }
+
+
     async index(): Promise<IUser[]>  {
-        var users = await this.userRepository.index();
-        
+        var users = await this.userRepository.index();    
         const serializedUsers = users.map(user =>{
             user.avatar = `http://${process.env.MY_IP_LINUX}:5000/uploads/${user.avatar}`
             return {...user}
-        })
-        
+        })    
         return serializedUsers; 
     }
     
 
     async show(email:string): Promise<IUser>{      
         var user = await this.userRepository.show(email);
-
         user.avatar = `http://${process.env.MY_IP_LINUX}:5000/uploads/${user.avatar}`
-
         return user; 
     }
 
 
-
-    async create({newUser}: IRequestUser): Promise<boolean>{
-            
-        if(newUser.nickname.length === 0 || newUser.email.length === 0 || newUser.avatar.length === 0) {
-            throw new Error('Inform all fields')
-        }
-
+    async create({newUser}: IRequestUser): Promise<boolean>{         
+        if(this.validationNotNull({newUser})) throw new Error('Inform all fields')     
         if(!newUser.id){
             const newId = uuidv4();
             newUser = {...newUser, id: newId}
         }
-
         const user = await this.userRepository.createUser({newUser});
-
         if(!user) throw new Error('Duplicate field or Connection error')
-
         return true;     
     }
 
     async update({id, newUser}: IRequestUser){
         if(!id) throw new Error('ID not informed')
-
         if(newUser.nickname.length === 0 || newUser.email.length === 0) {
             throw new Error('Inform all fields')
         }
-
         const user = await this.userRepository.updateUser({id, newUser})
-
         return user;
     }
 
 
     async delete(id: string){
         if(!id) throw new Error('ID not informed')
-
         const user = await this.userRepository.deleteProduct(id)
-
         return user;
     }
-
 }
 
 //export default new UsersService(getCustomRepository(UsersRepository))

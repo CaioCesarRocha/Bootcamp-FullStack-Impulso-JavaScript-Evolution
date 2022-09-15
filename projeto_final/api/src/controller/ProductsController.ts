@@ -49,10 +49,10 @@ class ProductsController {
         try{
             const imgProduct = request.file?.filename
 
-            var newP = request.body
-            newP = {...newP, "image": imgProduct || 'noHas'}
+            var newProduct = request.body
+            newProduct = {...newProduct, "image": imgProduct || 'noHas'}
 
-            const product = await this.productService.create({newP});
+            const product = await this.productService.create({newProduct});
     
             return response.status(201).json({product})
         }catch(error){
@@ -66,12 +66,12 @@ class ProductsController {
     public update = async(request: Request, response: Response, next: NextFunction) => {
         try{
             const imgProduct = request.file?.filename;
-            var newP = request.body;
-            newP = {...newP, "image": imgProduct};   
+            var newProduct = request.body;
+            newProduct = {...newProduct, "image": imgProduct};   
 
             const id = parseInt(request.params.id)
 
-            const product = await this.productService.update({id, newP});
+            const product = await this.productService.update({id, newProduct});
 
             return response.status(200).json({product})
         }catch(error){

@@ -16,13 +16,9 @@ export const initialValuesCreateProduct: FormValuesCreateProduct = {
 
 export const sizes = ['P', 'M', 'G', 'GG'];
 
-
-
-
 //VALIDATION FOR UPDATE
 export const getInitialValues = async (id: string) =>{
     const values: IProduct = await ProductService.getOneProduct(id);
-
     const ValuesUpdateProduct:FormValuesProduct = { 
         id: values.id,
         name: values.name, 
@@ -31,7 +27,6 @@ export const getInitialValues = async (id: string) =>{
         size: values.size,
         image: values.image 
     };
-
     return ValuesUpdateProduct
 }
 

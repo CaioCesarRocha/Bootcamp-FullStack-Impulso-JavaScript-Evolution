@@ -8,5 +8,5 @@ export interface IProduct{
 
 export interface IRequestProduct{
     id?: number,
-    newP: IProduct
+    newProduct: IProduct
 }

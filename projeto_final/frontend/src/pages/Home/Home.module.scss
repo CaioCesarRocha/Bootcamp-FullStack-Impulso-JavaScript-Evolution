@@ -29,7 +29,6 @@ $color-dark-blue: #1759bd;
 }
 
 .SearchContent input{
-    //vertical-align: middle;
     width: 95%;
     height: 2.1rem;
     background-color: $color-light-blue;
@@ -39,7 +38,6 @@ $color-dark-blue: #1759bd;
     padding: 7px;
     padding-left: 30px;
     border-radius: 50px 0px 0px 50px;
-
     @include tablet {
         width: 80%;
     }
@@ -54,7 +52,7 @@ $color-dark-blue: #1759bd;
     color: white;
     cursor: pointer;
     border-radius: 0px 50px 50px 0px;
-
+    
     &:hover{
         background-color: $color-light-blue; 
         color: $color-dark-blue;
@@ -88,7 +86,6 @@ $color-dark-blue: #1759bd;
     width: 90%;
     margin-top: 20px;
     align-items: center;
-
     @include tablet {
         width: 350px;
     }
@@ -105,7 +102,6 @@ $color-dark-blue: #1759bd;
 }
 
 .ContentNotFound p{
-    font-size: 20px;
-    
+    font-size: 20px;    
     padding-left: 20px;
 }

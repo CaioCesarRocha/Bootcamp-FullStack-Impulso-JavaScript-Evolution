@@ -22,7 +22,6 @@ export class ProductsRepository extends Repository<Product>{
         .getOne()
 
         if(!product) throw new Error('No one product finded')
- 
         return product;
     }
 
@@ -40,45 +39,51 @@ export class ProductsRepository extends Repository<Product>{
     }
 
 
-    async createProduct({newP}: Partial<IRequestProduct> ){
+    async createProduct({newProduct}: Partial<IRequestProduct> ){
         const product = await getRepository(Product)
         .createQueryBuilder()
         .insert()
         .into(Product)
-        .values([
-            { 
-                name: newP.name, 
-                price: newP.price,
-                quantity: newP.quantity,
-                image: newP.image,
-                size: newP.size
-            },
-        ])
+        .values([{ 
+            name: newProduct.name, 
+            price: newProduct.price,
+            quantity: newProduct.quantity,
+            image: newProduct.image,
+            size: newProduct.size
+        },])
         .execute()
-
         return product; 
     }
 
-    async updateProduct({id, newP}: IRequestProduct ){
-        if (newP.image === undefined){
+    async updateProduct({id, newProduct}: IRequestProduct ){
+        if (newProduct.image === undefined){
             const product = await getRepository(Product)
             .createQueryBuilder()
             .update(Product)
-            .set({name: newP.name, price: newP.price, quantity: newP.quantity, size: newP.size})
+            .set({
+                name: newProduct.name, 
+                price: newProduct.price, 
+                quantity: newProduct.quantity, 
+                size: newProduct.size})
             .where("id = :id", { id: id })
             .execute()
 
             return product; 
-        }else{
-            const product = await getRepository(Product)
-            .createQueryBuilder()
-            .update(Product)
-            .set({name: newP.name, price: newP.price, quantity: newP.quantity, image: newP.image, size: newP.size})
-            .where("id = :id", { id: id })
-            .execute()
+        }
+        const product = await getRepository(Product)
+        .createQueryBuilder()
+        .update(Product)
+        .set({
+            name: newProduct.name, 
+            price: newProduct.price, 
+            quantity: newProduct.quantity, 
+            image: newProduct.image, 
+            size: newProduct.size
+        })
+        .where("id = :id", { id: id })
+        .execute()
 
-            return product; 
-        }      
+        return product;      
     }
 
     async deleteProduct(id: number){
@@ -90,7 +95,6 @@ export class ProductsRepository extends Repository<Product>{
         .execute()
 
         if(!product) throw new Error('Cant possible maked a connection')
-
         return true;
     }
 }

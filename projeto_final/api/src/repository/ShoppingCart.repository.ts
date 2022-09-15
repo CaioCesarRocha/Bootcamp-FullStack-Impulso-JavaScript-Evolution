@@ -5,7 +5,6 @@ import { ProductsRepository } from './Products.repository';
 import { IRequestItem } from '../services/interfaces/ShoppingCartInterface';
 
 
-
 @EntityRepository(ShoppingCart)
 export class ShoppingCartRepository extends Repository<ShoppingCart>{
     
@@ -17,8 +16,8 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         
         const productsRepository = new ProductsRepository();
         var Products: IProduct[] = [];
-        for(var i=0; i<idsItems.length; i++){
-            const Product = await productsRepository.showProduct(idsItems[i].product_id);
+        for(var item=0; item<idsItems.length; item++){
+            const Product = await productsRepository.showProduct(idsItems[item].product_id);
             Products.push(Product)
         }
 
@@ -31,12 +30,10 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         .createQueryBuilder()
         .insert()
         .into(ShoppingCart)
-        .values([
-            { 
-               user_id: newItem.user_id,
-               product_id: newItem.product_id
-            },
-        ])
+        .values([{ 
+            user_id: newItem.user_id,
+            product_id: newItem.product_id
+        },])
         .execute()
 
         return product; 
@@ -53,7 +50,6 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         .execute()
 
         if(!product) throw new Error('Cant possible maked a connection')
-
         return true;
     }
     
@@ -68,7 +64,6 @@ export class ShoppingCartRepository extends Repository<ShoppingCart>{
         .execute()
 
         if(!product) throw new Error('Cant possible maked a connection')
-
         return true;
     }
 }

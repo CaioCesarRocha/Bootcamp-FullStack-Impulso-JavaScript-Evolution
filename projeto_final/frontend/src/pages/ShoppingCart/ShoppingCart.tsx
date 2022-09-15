@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import styles from './ShoppingCart.module.scss';
 import { IProduct } from '../../services/interfaces/product.interface'
 import { useAppSelector } from '../../redux/useAppSelector';
@@ -8,11 +7,9 @@ import Alert from '../../components/alerts/alert';
 import CardItem from '../../components/cardItem/cardItem';
 import * as icon from '../../components/icons/index';
 
-
 const ShoppingCart = () =>{
     const [theme, setTheme] = useState(styles.light)
     const [products, setProducts] = useState<IProduct[]>([]);
-
     const listProducts = useAppSelector(state => state.products.productsList);
     const themeRedux = useAppSelector(state => state.theme.theme);
 
@@ -20,7 +17,6 @@ const ShoppingCart = () =>{
         if(themeRedux === 'dark') setTheme(styles.dark)
         if(themeRedux === 'light') setTheme(styles.light)
     },[themeRedux])
-
 
     useEffect(() =>{
         setProducts(listProducts)

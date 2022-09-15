@@ -25,7 +25,6 @@ export class UsersController {
        //const userService = await new UsersService({userRepository: new UsersRepository})
         try{
             const users = await this.userService.index();
-
             return response.status(200).json(users) 
         }catch(error){
             error.message="Connection refused"
@@ -39,9 +38,7 @@ export class UsersController {
       
         try{
             //const userService = await new UsersService({userRepository: new UsersRepository})
-
             const user = await this.userService.show(email);
-    
             return response.status(200).json({user}) 
         }catch(error){
             error.statusCode = 400;
@@ -74,16 +71,14 @@ export class UsersController {
 
     public update = async(request: Request, response: Response, next: NextFunction) => {
         try{
+            const id = request.params.id;
             const imgAvatar = request.file?.filename;
             var newUser = request.body;
             newUser = {...newUser, "avatar": imgAvatar || undefined};        
             if(newUser.isAdmin === 'true') newUser = {...newUser, isAdmin: true}
 
-            const id = request.params.id;
-
             //const userService = await new UsersService({userRepository: new UsersRepository})
             const user = await this.userService.update({id, newUser});
-
             return response.status(200).json({user})
         }catch(error){
             error.statusCode = 400;

@@ -4,7 +4,6 @@
     .Container h2{
         color: rgb(246, 246, 250);
     }
-
 }
 
 .Container{
@@ -25,8 +24,7 @@
 .Container h2{
     font-size: 25px;
     color: rgb(33, 33, 116);
-    font-style: italic;
-    
+    font-style: italic;  
     @include tablet {
         font-size: 40px;
     }   
@@ -52,7 +50,6 @@
     width: 90%;
     margin-top: 20px;
     align-items: center;
-
     @include tablet {
         width: 350px;
     }
@@ -69,7 +66,6 @@
 }
 
 .ContentNotFound p{
-    font-size: 20px;
-    
+    font-size: 20px;    
     padding-left: 20px;
 }

@@ -8,7 +8,6 @@ import { useAppSelector } from "../../redux/useAppSelector";
 import useAuth from '../../data/hooks/useAuth'
 
 
-
 interface PropsLayout{
     children?: any
     username?: string,
@@ -21,19 +20,16 @@ const Layout = (props: PropsLayout) =>{
     const navigate = useNavigate();
     const themeRedux = useAppSelector(state => state.theme.theme);
    
-
     useEffect(() =>{
         if(themeRedux === 'dark') setTheme(styles.dark)
         if(themeRedux === 'light') setTheme(styles.light)
     },[themeRedux])
 
- 
     return(   
         <ForceAuthentication> 
             <div className={theme}>
                 <div className={styles.Content}>             
-                    <NavBar/>
-                    
+                    <NavBar/>                 
                     <div className={styles.ContentPerfil}>
                         <a href="#/" onClick={() => navigate('/Perfil')}>
                             {user?.name || 'Fazer login'}

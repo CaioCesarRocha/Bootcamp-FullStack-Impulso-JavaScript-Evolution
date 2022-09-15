@@ -2,7 +2,6 @@
 
 $color-default: #023480;
 
-
 .Content{
     margin: 0 auto;
     margin-top: 30px;
@@ -23,14 +22,12 @@ $color-default: #023480;
         flex-direction: row;
        
     }
-
     @include laptop {
         width: 80%;
         display: flex;
         flex-direction: row;
         height: 73vh;
     }
-
     @include desktop {
         width: 60%;
         display: flex;
@@ -61,7 +58,6 @@ $color-default: #023480;
     margin-top: 10px;
     color: $color-default;
 }
-
 
 .RowInfo{
     display: flex;
@@ -134,7 +130,6 @@ $color-default: #023480;
     @include tablet {
         width: 350px;
     }
-
     @include laptop {
         width: 400px;
     }

@@ -72,25 +72,4 @@ describe('Users Service', () =>{
         const res = await userService.create(mockUser)
         expect(res).toBe(true)
     })
-
-    it("Shoudn't create  a user", async() =>{
-        const newUser: IUser = {
-            nickname: 'Teste',
-            email: 'teste@gmail.com',
-            isAdmin: false,
-            avatar: '' // not have a avatar, then shoudn't be create.
-        }
-        const user: IRequestUser = {
-            newUser: newUser
-        }
-
-        mockUserRepository.createUser = jest.fn().mockImplementation(() => Promise.resolve(newUser))
-
-        const userService = new UsersService({
-            userRepository: mockUserRepository
-        });
-
-        const res = await userService.create(user)
-        expect(res).toMatchObject(Error)
-    })
 })

@@ -23,7 +23,6 @@ export class UsersRepository extends Repository<User>{
         .getOne()
 
         if(!user) throw new Error('No one user finded')
- 
         return user;
     }
 
@@ -33,43 +32,35 @@ export class UsersRepository extends Repository<User>{
         .createQueryBuilder()
         .insert()
         .into(User)
-        .values([
-            { 
-                id: newUser.id,
-                nickname: newUser.nickname, 
-                email: newUser.email,
-                isAdmin: newUser.isAdmin,
-                avatar: newUser.avatar
-            },
-        ])
+        .values([{ 
+            id: newUser.id,
+            nickname: newUser.nickname, 
+            email: newUser.email,
+            isAdmin: newUser.isAdmin,
+            avatar: newUser.avatar
+        },])
         .execute()
-
         return user;      
     }
 
 
     async updateUser({id, newUser}: IRequestUser ){
         if(newUser.avatar === undefined){
-            const product = await getRepository(User)
+            const user = await getRepository(User)
             .createQueryBuilder()
             .update(User)
             .set({nickname: newUser.nickname, email: newUser.email, isAdmin: newUser.isAdmin})
             .where("id = :id", { id: id })
-            .execute()
-    
-            return product;
-
-        } else{
-            const product = await getRepository(User)
-            .createQueryBuilder()
-            .update(User)
-            .set({nickname: newUser.nickname, email: newUser.email, isAdmin: newUser.isAdmin, avatar: newUser.avatar})
-            .where("id = :id", { id: id })
-            .execute()
-    
-            return product; 
-        }
-                  
+            .execute()  
+            return user;
+        } 
+        const user = await getRepository(User)
+        .createQueryBuilder()
+        .update(User)
+        .set({nickname: newUser.nickname, email: newUser.email, isAdmin: newUser.isAdmin, avatar: newUser.avatar})
+        .where("id = :id", { id: id })
+        .execute()   
+        return user;                
     }
     
 
@@ -82,7 +73,6 @@ export class UsersRepository extends Repository<User>{
         .execute()
 
         if(!user) throw new Error('Cant possible maked a connection')
-
         return true;
     }
 }

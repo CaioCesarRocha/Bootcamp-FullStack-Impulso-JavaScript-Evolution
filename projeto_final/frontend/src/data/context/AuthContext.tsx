@@ -9,7 +9,6 @@ import UserLogin from '../../services/interfaces/userFirebase.interface';
 import { auth} from '../firebase/config';
 
 
-
 interface AuthContextProps{
     user?: UserLogin | null,
     userLogged?: boolean, 
@@ -25,7 +24,6 @@ interface AuthContextProps{
 
 const AuthContext= createContext<AuthContextProps>({    
 })
-
 
 //deixando os dados da forma como a gente quer receber
 async function normalizeUser(userFirebase: FirebaseUser): Promise<UserLogin>{
@@ -47,11 +45,8 @@ async function normalizeUser(userFirebase: FirebaseUser): Promise<UserLogin>{
             isAdmin: res?.isAdmin || false
         }
     }
-    else { return {uid: '', name: '', email: '', token: '', provider: '', imgUrl: '', isAdmin: false}}
+    return {uid: '', name: '', email: '', token: '', provider: '', imgUrl: '', isAdmin: false}
 }
-
-
-
 
 // salvando os dados do usuário em um cookie para nao perde-los no refresh da page...
 function handleCookie(logged: boolean){
@@ -63,15 +58,14 @@ function handleCookie(logged: boolean){
     else { Cookies.remove('dio-ecommerce-cod3r-auth') } // se tiver deslogado, exclui os dados 
 }
 
-
-
 export const AuthProvider = (props:any) =>{
     const [loading, setLoading] = useState(true)
     const [userLogged, setUserLogged] = useState<boolean>(false);
     const [user, setUser] = useState<UserLogin | null>(null);
     const [msgError, setMsgError] = useState<string>('');
 
- 
+    const correctStatusResponse = 201;
+
     //configurando a Sessão de acordo com o data do user recebido
     async function configSession(userFirebase: FirebaseUser | null){     
         if(userFirebase?.email){      
@@ -91,25 +85,22 @@ export const AuthProvider = (props:any) =>{
 
     const loginGoogle = async() =>{              
         try{
-            const provider = new GoogleAuthProvider()
-            
-            const res = await signInWithPopup(auth, provider);
+            const provider = new GoogleAuthProvider()   
+            const res_firebase = await signInWithPopup(auth, provider);
             setLoading(true);
-            await configSession(res.user) 
+            await configSession(res_firebase.user) 
             setUserLogged(true)
         } finally {
             setLoading(false)
         }           
     }
 
-
     //login normal with email and password
     async function loginNormal(email: string, password: string){ 
         try{
             setLoading(true)
-            const res = await signInWithEmailAndPassword(auth, email, password)
-            await configSession(res.user)
-                    
+            const res_firebase = await signInWithEmailAndPassword(auth, email, password)
+            await configSession(res_firebase.user)                 
             setUserLogged(true)
         }catch(err){
             if (err instanceof Error) setMsgError(err.message);
@@ -125,10 +116,10 @@ export const AuthProvider = (props:any) =>{
         if(confirmPassword === password){
             try{
                 setLoading(true)
-                const res = await createUserWithEmailAndPassword(auth, email, password)                 
-                const res_api = await UsersService.saveDataUser(res.user);
-                if(res_api === 201) {                  
-                    await configSession(res.user)
+                const res_firebase = await createUserWithEmailAndPassword(auth, email, password)                 
+                const res_api = await UsersService.saveDataUser(res_firebase.user);
+                if(res_api === correctStatusResponse) {                  
+                    await configSession(res_firebase.user)
                     setUserLogged(true)  
                 }                                         
             }catch(err){
@@ -141,7 +132,6 @@ export const AuthProvider = (props:any) =>{
         }else{ setMsgError('Repita as senhas corretamente')}            
     }
 
-
     async function logout(){
         try{
             setLoading(true)
@@ -153,12 +143,11 @@ export const AuthProvider = (props:any) =>{
         }        
     }
 
-    async function updateUser(user: UserLogin ){
-        const res = await UsersService.getDataUser(user.email)  
-        user.imgUrl = res.avatar
+    async function updateUser(user: UserLogin){
+        const res_api = await UsersService.getDataUser(user.email)  
+        user.imgUrl = res_api.avatar;
         setUser(user)
     }
-
 
     async function forgotPassword(email: string){
         //redefinir Senha
@@ -175,7 +164,6 @@ export const AuthProvider = (props:any) =>{
         });
     }
 
-
     useEffect(() =>{
         //esse metodo vai checar se ja existe um usuário mudou, em relaçaõ ao q estava logado antes
         //se tiver mudado ele chama a config session para passar os dados dnv(do user q logou a 1 vez)
@@ -186,7 +174,6 @@ export const AuthProvider = (props:any) =>{
         }
         else setLoading(false)    
     }, [])
-
 
     return (
         <AuthContext.Provider value={{

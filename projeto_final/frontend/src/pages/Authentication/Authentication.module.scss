@@ -1,6 +1,5 @@
 @import '../../services/break-points.scss';
 
-
 $color-black: rgb(3, 3, 3);
 
 .Container{
@@ -60,7 +59,6 @@ $color-black: rgb(3, 3, 3);
     margin-left: 1px;
     background: linear-gradient(90deg, rgb(1, 65, 117) 0%, rgb(3, 144, 238) 100%);
     padding: 12px;
-
     @include tablet {
         width: 100%
     }
@@ -85,7 +83,6 @@ $color-black: rgb(3, 3, 3);
     justify-content: center;
 }
 
-
 .ForgetPassword{
     margin-top: 5px;
     font-size: 12px;
@@ -96,7 +93,6 @@ $color-black: rgb(3, 3, 3);
     a {  
         color: $color-black;
         text-decoration: none;
-
         &:hover{
             color:rgb(58, 56, 56);
         }

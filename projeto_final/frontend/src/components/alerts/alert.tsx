@@ -7,8 +7,6 @@ interface propsSuccesAlert{
 }
 
 const Alert = (props: propsSuccesAlert) =>{
-
-
     return(
         <div>   
             <ToastContainer autoClose={3000} theme={props.theme} position={'top-center'}/>

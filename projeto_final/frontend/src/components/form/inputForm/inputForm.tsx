@@ -1,4 +1,3 @@
-
 import styles from './inputForm.module.scss';
 
 interface propsInputForm {
@@ -10,7 +9,6 @@ interface propsInputForm {
     type: 'text' | 'number' | 'password' | 'email',
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
-
 
 const InputForm = (props: propsInputForm) =>{
     return(
@@ -27,6 +25,5 @@ const InputForm = (props: propsInputForm) =>{
         </div>  
     )
 }
-
 
 export default InputForm;

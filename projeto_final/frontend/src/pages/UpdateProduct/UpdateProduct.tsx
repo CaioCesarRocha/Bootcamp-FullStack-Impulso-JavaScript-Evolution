@@ -22,10 +22,10 @@ const UpdateProduct = () =>{
         {id: 0, name: '', price: 0, quantity: 0, size: '', image: ''}
     )
     const params = useParams();
-
+    const okResponseStatus = 200;
+    const badRequestResponseStatus = 400;
 
     useEffect(() =>{
-        console.log('PASSOU USEFFECT DO UPDATE PRODUDCT')
         const id = params.id || '0';
         async function getValuesProduct(){
             const values = await validationForm.getInitialValues(id) ;
@@ -34,21 +34,18 @@ const UpdateProduct = () =>{
         getValuesProduct()
     }, [params.id])
 
-
     const handleResult = (response: number, name: string) =>{
-        if(response === 200){
+        if(response === okResponseStatus){
             //formik.resetForm();
             toast.success(`Produto ${name} atualizado com sucesso!`);
             //navigate('/')
-        }else if(response === 400) toast.error('Produto com este nome já existe no banco!'); 
+        }
+        if(response===badRequestResponseStatus) toast.error('Produto com este nome já existe no banco!'); 
     } 
-
 
     const formik  = useFormik({
         initialValues: valueProduct,
-    
-        validationSchema: validationForm.schemaCreateProduct,
-    
+        validationSchema: validationForm.schemaCreateProduct, 
         enableReinitialize: true,
 
         onSubmit: async (data) => { 
@@ -63,6 +60,57 @@ const UpdateProduct = () =>{
         } 
     });
 
+    function renderFields(){
+        return(<>
+            <div className={styles.ContentRow}>
+                <div className={styles.ContentColumn}>
+                    <InputForm
+                        info="Nome do produto"
+                        name="name"
+                        type="text"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                    />
+                    {formik.errors.name && formik.touched.name && <ErrorForm message={formik.errors.name}/>}
+                </div>
+                <div className={styles.ContentColumn}>
+                    <InputForm
+                        info="Preço do produto"
+                        name="price"
+                        type="number"
+                        value={formik.values.price}
+                        onChange={formik.handleChange}
+                    />
+                    {formik.errors.price && formik.touched.price && <ErrorForm message={formik.errors.price}/>}
+                </div>
+            </div>
+            <div className={styles.ContentRow}>
+                <div className={styles.ContentColumn}>
+                    <InputForm
+                        info="Quantidade do Produto"
+                        name="quantity"
+                        type="number"
+                        value={formik.values.quantity}
+                        onChange={formik.handleChange}
+                    />
+                    {formik.errors.quantity && formik.touched.quantity && <ErrorForm message={formik.errors.quantity}/>}
+                </div>
+                <div className={styles.ContentColumn}>
+                    <p className={styles.nameField}> Tamanho: </p>
+                    <select 
+                        name="size" 
+                        value={formik.values.size} 
+                        onChange={formik.handleChange}
+                    >
+                        {validationForm.sizes.map((size, key) =>(                            
+                            <option key={key} value={size}> {size} </option>                         
+                        ))}
+                    </select>
+                    {formik.errors.size && formik.touched.size && <ErrorForm message={formik.errors.size}/>}
+                </div>
+            </div>
+        </>)
+    }
 
     return (
         <Layout>
@@ -80,55 +128,7 @@ const UpdateProduct = () =>{
                             valueInitial={formik.values.image}              
                         />
                         <div className={styles.ContentColumn}>
-                            <div className={styles.ContentRow}>
-                                <div className={styles.ContentColumn}>
-                                    <InputForm
-                                        info="Nome do produto"
-                                        name="name"
-                                        type="text"
-                                        value={formik.values.name}
-                                        onChange={formik.handleChange}
-                                    />
-                                    {formik.errors.name && formik.touched.name && <ErrorForm message={formik.errors.name}/>}
-                                </div>
-                                <div className={styles.ContentColumn}>
-                                    <InputForm
-                                        info="Preço do produto"
-                                        name="price"
-                                        type="number"
-                                        value={formik.values.price}
-                                        onChange={formik.handleChange}
-                                    />
-                                    {formik.errors.price && formik.touched.price && <ErrorForm message={formik.errors.price}/>}
-                                </div>
-                            </div>
-                                              
-                            <div className={styles.ContentRow}>
-                                <div className={styles.ContentColumn}>
-                                    <InputForm
-                                        info="Quantidade do Produto"
-                                        name="quantity"
-                                        type="number"
-                                        value={formik.values.quantity}
-                                        onChange={formik.handleChange}
-                                    />
-                                    {formik.errors.quantity && formik.touched.quantity && <ErrorForm message={formik.errors.quantity}/>}
-                                </div>
-
-                                <div className={styles.ContentColumn}>
-                                    <p className={styles.nameField}> Tamanho: </p>
-                                    <select 
-                                        name="size" value={formik.values.size} onChange={formik.handleChange}
-                                    >
-                                        {validationForm.sizes.map((size, key) =>(                            
-                                            <option key={key} value={size}> 
-                                                {size}
-                                            </option>                         
-                                        ))}
-                                    </select>
-                                    {formik.errors.size && formik.touched.size && <ErrorForm message={formik.errors.size}/>}
-                                </div>
-                            </div>
+                            {renderFields()}                            
                         </div>
                     </div>
                     <ButtonForm message='Enviar Atualização'/>

@@ -29,22 +29,23 @@ const CardItem = (props: propsProduct) =>{
     const removeProductDispatch = useDispatch();
     const { userLogged, user } = useAuth();
 
+    const correctInsertStatus = 201;
 
     const handleProduct = async(product_id: number) =>{
         if(userLogged && user?.uid && props.infoButton === 'Adicionar'){
             const res = await UsersService.addProduct(user?.uid, product_id );
-            if(res === 201) {
+            if(res === correctInsertStatus) {
                 const product = {id: props.id, name: props.name, price: props.price, image: props.image, size: props.size}
                 const sendingProducts = (product: propsProduct) => removeProductDispatch(addProductList(product))           
                 sendingProducts(product)
-            } toast.success('Produto Adicionado no carrinho.');                          
+            } 
+            toast.success('Produto Adicionado no carrinho.');                          
         }
         else if(userLogged && user?.uid && props.infoButton === 'Remover da Lista'){
             const res: boolean = await UsersService.removeProduct(user?.uid, product_id )
             if(res){
                 const sendingProducts = (product_id: number) => removeProductDispatch(removeProductList(product_id))           
                 sendingProducts(product_id)
-
                 toast.success('Produto removido carrinho.');            
             }
         }else{
@@ -57,9 +58,8 @@ const CardItem = (props: propsProduct) =>{
         setShouldDelete(true)
         if(shouldDelete){
             const res: boolean = await ProductsService.deleteProduct(id)
-
-            if(res)    await toast.success('Produto deletado com sucesso');
-            else   toast.error('não foi possivel concluir a operação');
+            if(res) await toast.success('Produto deletado com sucesso');
+            else  toast.error('não foi possivel concluir a operação');
         }
         return null;
     }

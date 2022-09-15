@@ -11,7 +11,6 @@ export default function ForceAuthentication(props: any){
     const navigate = useNavigate();
     const [renderContent, setRenderContent] = useState<boolean>(false)
 
-
     useEffect(() =>{
         //se nao tiver carregando e usuário setado entao verifica autenticação
         if(!loading && user?.email)  setRenderContent(true)
@@ -21,7 +20,6 @@ export default function ForceAuthentication(props: any){
         //else{ console.log('navegou auentication')}
         else navigate('/authentication')  
     }, [loading, user, navigate])
-
 
     return(
         <div className={styles.Container}>

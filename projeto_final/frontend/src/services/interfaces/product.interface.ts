@@ -7,7 +7,6 @@ export interface FormValuesProduct {
     image?: string;
 }
 
-
 export interface FormValuesCreateProduct {
     id?: number;
     name: string;
@@ -16,7 +15,6 @@ export interface FormValuesCreateProduct {
     size: string;
     image?: string;
 }
-
 
 export interface IProduct{
     id: number;

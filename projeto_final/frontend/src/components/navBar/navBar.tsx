@@ -35,9 +35,7 @@ const NavBar = () =>{
         async function getShoppingCart(){
             if(userLogged && user?.uid){
                 const response: IProduct[] = await UsersService.getShoppingCart(user?.uid);
-
-                const sendingProducts = (products: IProduct[]) => dispatch(setProductsList(products))
-               
+                const sendingProducts = (products: IProduct[]) => dispatch(setProductsList(products))              
                 sendingProducts(response)
             }
         }
@@ -65,11 +63,9 @@ const NavBar = () =>{
                         src="/images/logo_DIO.png"
                         alt="Logo Empresa"
                     />
-                </a>
-                
+                </a>           
                 <a href="#/" onClick={() => navigate('/')}> DIO E-Commerce </a>
             </>
-
             <div className={styles.ContentOption}>
                 { user?.isAdmin ? 
                     <a href="#/"  onClick={() => navigate('/CreateProduct')} className={styles.Option}>
