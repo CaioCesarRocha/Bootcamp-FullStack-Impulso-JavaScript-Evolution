@@ -1,10 +1,11 @@
-import { getRepository, EntityRepository, Repository } from 'typeorm';
+import { getRepository, EntityRepository, Repository, getConnection} from 'typeorm';
 import { Product } from '../entities/Product';
+import { ShoppingCart } from '../entities/ShoppingCart';
 import {IProduct, IRequestProduct} from '../services/interfaces/ProductsInterface';
 
 
 @EntityRepository(Product)
-export class ProductsRepository extends Repository<Product>{
+export class ProductsRepository extends Repository<Product | ShoppingCart>{
 
     async index(): Promise<IProduct[]> {
         const products = await getRepository(Product)
@@ -87,14 +88,20 @@ export class ProductsRepository extends Repository<Product>{
     }
 
     async deleteProduct(id: number){
-        const product = await getRepository(Product)
-        .createQueryBuilder('product')
-        .delete()
-        .from(Product)
-        .where('id = :id', {id: id})
-        .execute()
+        const connection = getConnection(); 
+        const queryRunner = connection.createQueryRunner(); 
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
 
-        if(!product) throw new Error('Cant possible maked a connection')
-        return true;
+        await queryRunner.manager.delete(ShoppingCart, {product_id: id})
+        await queryRunner.manager.delete(Product, id)
+        
+        try{
+            await queryRunner.commitTransaction(); 
+            return true;
+        }catch(err){
+            await queryRunner.rollbackTransaction();
+            return false;
+        }       
     }
 }
